@@ -1,0 +1,27 @@
+T : Type.
+t : Base.type.
+
+[] Base.El t --> T.
+
+true : T.
+false : T.
+
+def not : T -> T.
+[] not true --> false.
+[] not false --> true.
+
+def and : T -> T -> T.
+[x] and true x --> x.
+[x] and x true --> x.
+[] and false _ --> false.
+[] and _ false --> false.
+
+def or : T -> T -> T.
+[] or true _ --> true.
+[] or _ true --> true.
+[x] or false x --> x.
+[x] or x false --> x.
+
+def if_then_else : (a : Base.type) -> T -> Base.El a -> Base.El a -> Base.El a.
+[x] if_then_else _ true x _ --> x.
+[y] if_then_else _ false _ y --> y.

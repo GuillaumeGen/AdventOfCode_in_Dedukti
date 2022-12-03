@@ -1,0 +1,74 @@
+t : Base.type -> Base.type.
+T : Base.type -> Type.
+[a] Base.El (t a) --> T a.
+
+nil : (a : Base.type) -> T a.
+cons : (a : Base.type) -> Base.El a -> T a -> T a.
+
+private def is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
+[] is_eq _ _ (nil _) (nil _) --> Bool.true.
+[] is_eq _ _ (nil _) (cons _ _ _) --> Bool.false.
+[] is_eq _ _ (cons _ _ _) (nil _) --> Bool.false.
+[a, eqA, x, t, y, u] is_eq a eqA (cons _ x t) (cons _ y u) --> Bool.and (Eq.eq a eqA x y) (is_eq a eqA t u).
+
+def Eq (a : Base.type) (eqA : Eq.T a) : Eq.T (t a) := Eq.Cons (t a) (is_eq a eqA).
+
+private def rev_aux : (a : Base.type) -> T a -> T a -> T a.
+[acc] rev_aux _ acc (nil _) --> acc.
+[a, acc, x, tl] rev_aux a acc (cons _ x tl) --> rev_aux a (cons a x acc) tl.
+
+def rev : (a : Base.type) -> T a -> T a.
+[a, l] rev a l --> rev_aux a (nil a) l.
+
+def map : (a : Base.type) -> (b : Base.type) -> (Base.El a -> Base.El b) -> T a -> T b.
+[b] map _ b _ (nil _) --> nil b.
+[a, b, f, x, tl] map a b f (cons _ x tl) --> cons b (f x) (map a b f tl).
+
+private def split_aux : (a : Base.type) -> Eq.T a -> Base.El a -> T (t a) -> T a -> T a -> T (t a).
+[a, acc_glob, acc_loc] split_aux a _ _ acc_glob acc_loc (nil _) --> rev (t a) (cons (t a) (rev a acc_loc) acc_glob).
+[a, eqA, x, acc_glob, acc_loc, hd, tl] split_aux a eqA x acc_glob acc_loc (cons _ hd tl) -->
+    Bool.if_then_else (t (t a)) (Eq.eq a eqA x hd)
+        (split_aux a eqA x (cons (t a) (rev a acc_loc) acc_glob) (nil a) tl)
+        (split_aux a eqA x acc_glob (cons a hd acc_loc) tl).
+
+def split : (a : Base.type) -> Eq.T a -> Base.El a -> T a -> T (t a).
+[a, eqA, x, l] split a eqA x l --> split_aux a eqA x (nil (t a)) (nil a) l.
+
+def fold_left : (a : Base.type) -> (b : Base.type) -> (Base.El b -> Base.El a -> Base.El b) -> Base.El b -> T a -> Base.El b.
+[acc] fold_left _ _ _ acc (nil _) --> acc.
+[a, b, f, acc, hd, tl] fold_left a b f acc (cons _ hd tl) --> fold_left a b f (f acc hd) tl.
+
+def fold_right : (a : Base.type) -> (b : Base.type) -> (Base.El a -> Base.El b -> Base.El b) -> T a -> Base.El b -> Base.El b.
+[acc] fold_right _ _ _ (nil _) acc --> acc.
+[a, b, f, init, hd, tl] fold_right a b f (cons _ hd tl) init --> f hd (fold_right a b f tl init).
+
+def foldNonEmpty : (a : Base.type) -> (Base.El a -> Base.El a -> Base.El a) -> T a -> Base.El a.
+[x] foldNonEmpty _ _ (cons _ x (nil _)) --> x.
+[a, f, x, y, tl] foldNonEmpty a f (cons _ x (cons _ y tl)) --> foldNonEmpty a f (cons a (f x y) tl).
+
+def prefix : (a : Base.type) -> UnaryNat.T -> T a -> T a.
+[a] prefix a UnaryNat.0 _ --> nil a.
+[a, n, hd, tl] prefix a (UnaryNat.S n) (cons _ hd tl) --> cons a hd (prefix a n tl).
+
+def insert : (a : Base.type) -> Ord.T a -> Base.El a -> T a -> T a.
+private def insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
+[a, x] insert a _ x (nil _) --> cons a x (nil a).
+[a, ordA, x, hd, tl] insert a ordA x (cons _ hd tl) --> insert_aux a ordA (Ord.compare a ordA x hd) x hd tl.
+[a, ordA, x, hd, tl] insert_aux a ordA Ordering.LT x hd tl --> cons a hd (insert a ordA x tl).
+[a, ordA, x, hd, tl] insert_aux a ordA Ordering.EQ x hd tl --> cons a hd (cons a x tl).
+[a, ordA, x, hd, tl] insert_aux a ordA Ordering.GT x hd tl --> cons a x (cons a hd tl).
+
+def sort : (a : Base.type) -> Ord.T a -> T a -> T a.
+[a, ordA, l] sort a ordA l --> fold_right a (t a) (insert a ordA) l (nil a).
+
+private def max_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> Base.El a.
+[x] max_aux _ _ Ordering.EQ x _ (nil _) --> x.
+[y] max_aux _ _ Ordering.LT _ y (nil _) --> y.
+[x] max_aux _ _ Ordering.GT x _ (nil _) --> x.
+[a, ordA, x, hd, tl] max_aux a ordA Ordering.EQ x _ (cons _ hd tl) --> max_aux a ordA (Ord.compare a ordA x hd) x hd tl.
+[a, ordA, y, hd, tl] max_aux a ordA Ordering.LT _ y (cons _ hd tl) --> max_aux a ordA (Ord.compare a ordA y hd) y hd tl.
+[a, ordA, x, hd, tl] max_aux a ordA Ordering.GT x _ (cons _ hd tl) --> max_aux a ordA (Ord.compare a ordA x hd) x hd tl.
+
+def max : (a : Base.type) -> Ord.T a -> T a -> Base.El a.
+[hd] max _ _ (cons _  hd (nil _)) --> hd.
+[a, ordA, x, y, tl] max a ordA (cons _  x (cons _ y tl)) --> max_aux a ordA (Ord.compare a ordA x y) x y tl.

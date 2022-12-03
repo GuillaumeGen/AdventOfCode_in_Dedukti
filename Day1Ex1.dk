@@ -1,0 +1,7 @@
+def lines : List.T String.t := String.lines Input1.content.
+def blocksStrings : List.T (List.t String.t) := List.split (String.t) String.Eq String.end lines.
+def blockNats : List.T (List.t DecimalNonZeroNat.t) := List.map (List.t String.t) (List.t DecimalNonZeroNat.t) (List.map (String.t) (DecimalNonZeroNat.t) DecimalNonZeroNat.parse) blocksStrings.
+def listNats : List.T DecimalNonZeroNat.t := List.map (List.t DecimalNonZeroNat.t) DecimalNonZeroNat.t (List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add) blockNats.
+def result : DecimalNonZeroNat.T := List.max DecimalNonZeroNat.t DecimalNonZeroNat.Ord listNats.
+
+#EVAL DecimalNonZeroNat.print result.

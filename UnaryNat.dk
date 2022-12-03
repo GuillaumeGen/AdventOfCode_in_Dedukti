@@ -1,0 +1,10 @@
+T : Type.
+
+0 : T.
+S : T -> T.
+
+def 1 := S 0.
+def 2 := S 1.
+def 3 := S 2.
+def 4 := S 3.
+def 5 := S 4.

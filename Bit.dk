@@ -1,0 +1,14 @@
+T : Type.
+t : Base.type.
+[] Base.El t --> T.
+
+0 : T.
+1 : T.
+
+def eq : T -> T -> Bool.T.
+[] eq 0 0 --> Bool.true.
+[] eq 0 1 --> Bool.false.
+[] eq 1 0 --> Bool.false.
+[] eq 1 1 --> Bool.true.
+
+def Eq : Eq.T t := Eq.Cons t eq.

@@ -1,0 +1,4 @@
+def sortedVersion := List.sort DecimalNonZeroNat.t DecimalNonZeroNat.Ord Day1Ex1.listNats.
+def result := List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add (List.prefix DecimalNonZeroNat.t UnaryNat.3 sortedVersion).
+
+#EVAL DecimalNonZeroNat.print result.

@@ -1,0 +1,7 @@
+T : (a : Base.type) -> Type.
+Cons : (a : Base.type) -> (Base.El a -> Base.El a -> Bool.T) -> T a.
+def eq : (a : Base.type) -> T a -> Base.El a -> Base.El a -> Bool.T.
+[f] eq _ (Cons _ f) --> f.
+
+def neq : (a : Base.type) -> T a -> Base.El a -> Base.El a -> Bool.T.
+[a, f, x, y] neq a (Cons _ f) x y --> Bool.not (f x y).

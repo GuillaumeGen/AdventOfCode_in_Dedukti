@@ -1,0 +1,7 @@
+T : (a : Base.type) -> Type.
+Cons : (a : Base.type) -> (Base.El a -> Base.El a -> Ordering.T) -> T a.
+def compare : (a : Base.type) -> T a -> Base.El a -> Base.El a -> Ordering.T.
+[f] compare _ (Cons _ f) --> f.
+
+def impliesEq : (a : Base.type) -> T a -> Eq.T a.
+[a, comp] impliesEq a (Cons _ comp) --> Eq.Cons a (x => y => Ordering.eq (comp x y) Ordering.EQ).
