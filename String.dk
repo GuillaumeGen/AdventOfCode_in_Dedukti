@@ -10,3 +10,4 @@ def cons : Char.TT -> T -> T := List.cons Char.tt.
 def lines : T -> List.T t := List.split Char.tt Char.Eq Char.new_line.
 
 def Eq := List.Eq Char.tt Char.Eq.
+def eq := Eq.eq String.t Eq.

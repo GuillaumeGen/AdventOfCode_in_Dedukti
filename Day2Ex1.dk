@@ -1,0 +1,37 @@
+def A_ := String.cons Char.A.
+def B_ := String.cons Char.B.
+def C_ := String.cons Char.C.
+def _X := String.cons Char.X String.end.
+def _Y := String.cons Char.Y String.end.
+def _Z := String.cons Char.Z String.end.
+def sp := String.cons Char.space.
+
+def AX := A_ (sp _X).
+def AY := A_ (sp _Y).
+def AZ := A_ (sp _Z).
+def BX := B_ (sp _X).
+def BY := B_ (sp _Y).
+def BZ := B_ (sp _Z).
+def CX := C_ (sp _X).
+def CY := C_ (sp _Y).
+def CZ := C_ (sp _Z).
+
+private def points_aux : Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> DecimalNonZeroNat.T.
+[] points_aux Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.4.
+[] points_aux Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.8.
+[] points_aux Bool.false Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.3.
+[] points_aux Bool.false Bool.false Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.1.
+[] points_aux Bool.false Bool.false Bool.false Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.5.
+[] points_aux Bool.false Bool.false Bool.false Bool.false Bool.false Bool.true Bool.false Bool.false Bool.false --> DecimalNonZeroNat.9.
+[] points_aux Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.true Bool.false Bool.false --> DecimalNonZeroNat.7.
+[] points_aux Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.true Bool.false --> DecimalNonZeroNat.2.
+[] points_aux Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.true --> DecimalNonZeroNat.6.
+
+def points : String.T -> DecimalNonZeroNat.T.
+[s] points s --> points_aux (String.eq s AX) (String.eq s AY) (String.eq s AZ) (String.eq s BX) (String.eq s BY) (String.eq s BZ) (String.eq s CX) (String.eq s CY) (String.eq s CZ).
+
+def lines : List.T String.t := String.lines Input2.content.
+def point_list := List.map String.t DecimalNonZeroNat.t points lines.
+def total := List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add point_list.
+
+#EVAL DecimalNonZeroNat.print total.
