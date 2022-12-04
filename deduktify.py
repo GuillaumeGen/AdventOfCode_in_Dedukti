@@ -25,6 +25,9 @@ def deduktify(s):
         elif c == ".":
             res += "String.cons Char.dot ("
             end += ")"
+        elif c == "-":
+            res += "String.cons Char.minus ("
+            end += ")"
         else:
             print("UNEXPECTED CHARACTER" + c)
     return (res + "String.end" + end + '.')
