@@ -1,0 +1,10 @@
+def group_by_3 : (a : Base.type) -> List.T a -> List.T (List.t a).
+[a] group_by_3 a (List.nil _) --> List.nil (List.t a).
+[a, x, y, z, tl] group_by_3 a (List.cons _ x (List.cons _ y (List.cons _ z tl))) --> List.cons (List.t a) (List.cons a x (List.cons a y (List.cons a z (List.nil a)))) (group_by_3 a tl).
+
+def grouped := group_by_3 String.t Day3Ex1.lines.
+def list_of_chars := List.map (List.t String.t) Char.tt (l => List.head Char.tt (List.foldNonEmpty String.t (List.intersect Char.tt Char.Eq) l)) grouped.
+def list_of_values := List.map Char.tt DecimalNonZeroNat.t Day3Ex1.val_of_char list_of_chars.
+def result := List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add list_of_values.
+
+#EVAL DecimalNonZeroNat.print result.

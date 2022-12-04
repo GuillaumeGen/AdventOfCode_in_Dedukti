@@ -1,0 +1,62 @@
+def val_of_char : Char.TT -> DecimalNonZeroNat.T.
+[] val_of_char Char.a --> DecimalNonZeroNat.1.
+[] val_of_char Char.b --> DecimalNonZeroNat.2.
+[] val_of_char Char.c --> DecimalNonZeroNat.3.
+[] val_of_char Char.d --> DecimalNonZeroNat.4.
+[] val_of_char Char.e --> DecimalNonZeroNat.5.
+[] val_of_char Char.f --> DecimalNonZeroNat.6.
+[] val_of_char Char.g --> DecimalNonZeroNat.7.
+[] val_of_char Char.h --> DecimalNonZeroNat.8.
+[] val_of_char Char.i --> DecimalNonZeroNat.9.
+[] val_of_char Char.j --> DecimalNonZeroNat.0_ DecimalNonZeroNat.1.
+[] val_of_char Char.k --> DecimalNonZeroNat.1_ DecimalNonZeroNat.1.
+[] val_of_char Char.l --> DecimalNonZeroNat.2_ DecimalNonZeroNat.1.
+[] val_of_char Char.m --> DecimalNonZeroNat.3_ DecimalNonZeroNat.1.
+[] val_of_char Char.n --> DecimalNonZeroNat.4_ DecimalNonZeroNat.1.
+[] val_of_char Char.o --> DecimalNonZeroNat.5_ DecimalNonZeroNat.1.
+[] val_of_char Char.p --> DecimalNonZeroNat.6_ DecimalNonZeroNat.1.
+[] val_of_char Char.q --> DecimalNonZeroNat.7_ DecimalNonZeroNat.1.
+[] val_of_char Char.r --> DecimalNonZeroNat.8_ DecimalNonZeroNat.1.
+[] val_of_char Char.s --> DecimalNonZeroNat.9_ DecimalNonZeroNat.1.
+[] val_of_char Char.t --> DecimalNonZeroNat.0_ DecimalNonZeroNat.2.
+[] val_of_char Char.u --> DecimalNonZeroNat.1_ DecimalNonZeroNat.2.
+[] val_of_char Char.v --> DecimalNonZeroNat.2_ DecimalNonZeroNat.2.
+[] val_of_char Char.w --> DecimalNonZeroNat.3_ DecimalNonZeroNat.2.
+[] val_of_char Char.x --> DecimalNonZeroNat.4_ DecimalNonZeroNat.2.
+[] val_of_char Char.y --> DecimalNonZeroNat.5_ DecimalNonZeroNat.2.
+[] val_of_char Char.z --> DecimalNonZeroNat.6_ DecimalNonZeroNat.2.
+[] val_of_char Char.A --> DecimalNonZeroNat.7_ DecimalNonZeroNat.2.
+[] val_of_char Char.B --> DecimalNonZeroNat.8_ DecimalNonZeroNat.2.
+[] val_of_char Char.C --> DecimalNonZeroNat.9_ DecimalNonZeroNat.2.
+[] val_of_char Char.D --> DecimalNonZeroNat.0_ DecimalNonZeroNat.3.
+[] val_of_char Char.E --> DecimalNonZeroNat.1_ DecimalNonZeroNat.3.
+[] val_of_char Char.F --> DecimalNonZeroNat.2_ DecimalNonZeroNat.3.
+[] val_of_char Char.G --> DecimalNonZeroNat.3_ DecimalNonZeroNat.3.
+[] val_of_char Char.H --> DecimalNonZeroNat.4_ DecimalNonZeroNat.3.
+[] val_of_char Char.I --> DecimalNonZeroNat.5_ DecimalNonZeroNat.3.
+[] val_of_char Char.J --> DecimalNonZeroNat.6_ DecimalNonZeroNat.3.
+[] val_of_char Char.K --> DecimalNonZeroNat.7_ DecimalNonZeroNat.3.
+[] val_of_char Char.L --> DecimalNonZeroNat.8_ DecimalNonZeroNat.3.
+[] val_of_char Char.M --> DecimalNonZeroNat.9_ DecimalNonZeroNat.3.
+[] val_of_char Char.N --> DecimalNonZeroNat.0_ DecimalNonZeroNat.4.
+[] val_of_char Char.O --> DecimalNonZeroNat.1_ DecimalNonZeroNat.4.
+[] val_of_char Char.P --> DecimalNonZeroNat.2_ DecimalNonZeroNat.4.
+[] val_of_char Char.Q --> DecimalNonZeroNat.3_ DecimalNonZeroNat.4.
+[] val_of_char Char.R --> DecimalNonZeroNat.4_ DecimalNonZeroNat.4.
+[] val_of_char Char.S --> DecimalNonZeroNat.5_ DecimalNonZeroNat.4.
+[] val_of_char Char.T --> DecimalNonZeroNat.6_ DecimalNonZeroNat.4.
+[] val_of_char Char.U --> DecimalNonZeroNat.7_ DecimalNonZeroNat.4.
+[] val_of_char Char.V --> DecimalNonZeroNat.8_ DecimalNonZeroNat.4.
+[] val_of_char Char.W --> DecimalNonZeroNat.9_ DecimalNonZeroNat.4.
+[] val_of_char Char.X --> DecimalNonZeroNat.0_ DecimalNonZeroNat.5.
+[] val_of_char Char.Y --> DecimalNonZeroNat.1_ DecimalNonZeroNat.5.
+[] val_of_char Char.Z --> DecimalNonZeroNat.2_ DecimalNonZeroNat.5.
+
+def relevant_char (s : String.T) := List.head Char.tt (List.intersect Char.tt Char.Eq (List.prefix Char.tt (UnaryNat.half (List.length Char.tt s)) s) (List.drop Char.tt (UnaryNat.half (List.length Char.tt s)) s)).
+
+def lines : List.T String.t := String.lines Input3.content.
+def list_of_chars := List.map String.t Char.tt relevant_char lines.
+def list_of_values := List.map Char.tt DecimalNonZeroNat.t val_of_char list_of_chars.
+def result := List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add list_of_values.
+
+#EVAL DecimalNonZeroNat.print result.

@@ -46,9 +46,15 @@ def foldNonEmpty : (a : Base.type) -> (Base.El a -> Base.El a -> Base.El a) -> T
 [x] foldNonEmpty _ _ (cons _ x (nil _)) --> x.
 [a, f, x, y, tl] foldNonEmpty a f (cons _ x (cons _ y tl)) --> foldNonEmpty a f (cons a (f x y) tl).
 
+def length (a : Base.type) : T a -> UnaryNat.T := fold_left a UnaryNat.t (n => _ => UnaryNat.S n) UnaryNat.0.
+
 def prefix : (a : Base.type) -> UnaryNat.T -> T a -> T a.
 [a] prefix a UnaryNat.0 _ --> nil a.
 [a, n, hd, tl] prefix a (UnaryNat.S n) (cons _ hd tl) --> cons a hd (prefix a n tl).
+
+def drop : (a : Base.type) -> UnaryNat.T -> T a -> T a.
+[l] drop _ UnaryNat.0 l --> l.
+[a, n, tl] drop a (UnaryNat.S n) (cons _ _ tl) --> drop a n tl.
 
 def insert : (a : Base.type) -> Ord.T a -> Base.El a -> T a -> T a.
 private def insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
@@ -72,3 +78,17 @@ private def max_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> B
 def max : (a : Base.type) -> Ord.T a -> T a -> Base.El a.
 [hd] max _ _ (cons _  hd (nil _)) --> hd.
 [a, ordA, x, y, tl] max a ordA (cons _  x (cons _ y tl)) --> max_aux a ordA (Ord.compare a ordA x y) x y tl.
+
+def contains : (a : Base.type) -> Eq.T a -> Base.El a -> T a -> Bool.T.
+[] contains _ _ _ (nil _) --> Bool.false.
+[a, eqA, x, hd, tl] contains a eqA x (cons _ hd tl) --> Bool.if_then_else Bool.t (Eq.eq a eqA x hd) Bool.true (contains a eqA x tl).
+
+def filter : (a : Base.type) -> (Base.El a -> Bool.T) -> T a -> T a.
+[a] filter a _ (nil _) --> nil a.
+[a, f, hd, tl] filter a f (cons _ hd tl) --> Bool.if_then_else (t a) (f hd) (cons a hd (filter a f tl)) (filter a f tl).
+
+def intersect : (a : Base.type) -> Eq.T a -> T a -> T a -> T a.
+[a, eqA, l1, l2] intersect a eqA l1 l2 --> filter a (x => contains a eqA x l1) l2.
+
+def head : (a : Base.type) -> T a -> Base.El a.
+[hd] head _ (cons _ hd _) --> hd.

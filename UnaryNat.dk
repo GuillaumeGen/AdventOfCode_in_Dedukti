@@ -1,4 +1,6 @@
 T : Type.
+t : Base.type.
+[] Base.El t --> T.
 
 0 : T.
 S : T -> T.
@@ -8,3 +10,7 @@ def 2 := S 1.
 def 3 := S 2.
 def 4 := S 3.
 def 5 := S 4.
+
+def half : T -> T.
+[] half 0 --> 0.
+[x] half (S (S x)) --> S (half x).

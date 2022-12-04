@@ -30,8 +30,7 @@ private def points_aux : Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.
 def points : String.T -> DecimalNonZeroNat.T.
 [s] points s --> points_aux (String.eq s AX) (String.eq s AY) (String.eq s AZ) (String.eq s BX) (String.eq s BY) (String.eq s BZ) (String.eq s CX) (String.eq s CY) (String.eq s CZ).
 
-def lines : List.T String.t := String.lines Input2.content.
-def point_list := List.map String.t DecimalNonZeroNat.t points lines.
+def point_list := List.map String.t DecimalNonZeroNat.t points Day2Ex1.lines.
 def total := List.foldNonEmpty DecimalNonZeroNat.t DecimalNonZeroNat.add point_list.
 
 #EVAL DecimalNonZeroNat.print total.
