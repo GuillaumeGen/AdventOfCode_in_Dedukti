@@ -7,6 +7,8 @@ def end : T := List.nil Char.tt.
 
 def cons : Char.TT -> T -> T := List.cons Char.tt.
 
+def concat := List.concat Char.tt.
+
 def lines : T -> List.T t := List.split Char.tt Char.Eq Char.new_line.
 
 def Eq := List.Eq Char.tt Char.Eq.

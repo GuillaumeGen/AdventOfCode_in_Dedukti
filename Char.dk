@@ -71,8 +71,10 @@ semicolon : TT.
 dot : TT.
 new_line : TT.
 minus : TT.
+open_sq : TT.
+close_sq : TT.
 
-private def eq : TT -> TT -> Bool.T.
+def eq : TT -> TT -> Bool.T.
 [] eq a a --> Bool.true.
 [] eq a b --> Bool.false.
 [] eq a c --> Bool.false.
@@ -142,6 +144,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq a dot --> Bool.false.
 [] eq a new_line --> Bool.false.
 [] eq a minus --> Bool.false.
+[] eq a open_sq --> Bool.false.
+[] eq a close_sq --> Bool.false.
 [] eq b a --> Bool.false.
 [] eq b b --> Bool.true.
 [] eq b c --> Bool.false.
@@ -211,6 +215,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq b dot --> Bool.false.
 [] eq b new_line --> Bool.false.
 [] eq b minus --> Bool.false.
+[] eq b open_sq --> Bool.false.
+[] eq b close_sq --> Bool.false.
 [] eq c a --> Bool.false.
 [] eq c b --> Bool.false.
 [] eq c c --> Bool.true.
@@ -280,6 +286,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq c dot --> Bool.false.
 [] eq c new_line --> Bool.false.
 [] eq c minus --> Bool.false.
+[] eq c open_sq --> Bool.false.
+[] eq c close_sq --> Bool.false.
 [] eq d a --> Bool.false.
 [] eq d b --> Bool.false.
 [] eq d c --> Bool.false.
@@ -349,6 +357,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq d dot --> Bool.false.
 [] eq d new_line --> Bool.false.
 [] eq d minus --> Bool.false.
+[] eq d open_sq --> Bool.false.
+[] eq d close_sq --> Bool.false.
 [] eq e a --> Bool.false.
 [] eq e b --> Bool.false.
 [] eq e c --> Bool.false.
@@ -418,6 +428,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq e dot --> Bool.false.
 [] eq e new_line --> Bool.false.
 [] eq e minus --> Bool.false.
+[] eq e open_sq --> Bool.false.
+[] eq e close_sq --> Bool.false.
 [] eq f a --> Bool.false.
 [] eq f b --> Bool.false.
 [] eq f c --> Bool.false.
@@ -487,6 +499,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq f dot --> Bool.false.
 [] eq f new_line --> Bool.false.
 [] eq f minus --> Bool.false.
+[] eq f open_sq --> Bool.false.
+[] eq f close_sq --> Bool.false.
 [] eq g a --> Bool.false.
 [] eq g b --> Bool.false.
 [] eq g c --> Bool.false.
@@ -556,6 +570,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq g dot --> Bool.false.
 [] eq g new_line --> Bool.false.
 [] eq g minus --> Bool.false.
+[] eq g open_sq --> Bool.false.
+[] eq g close_sq --> Bool.false.
 [] eq h a --> Bool.false.
 [] eq h b --> Bool.false.
 [] eq h c --> Bool.false.
@@ -625,6 +641,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq h dot --> Bool.false.
 [] eq h new_line --> Bool.false.
 [] eq h minus --> Bool.false.
+[] eq h open_sq --> Bool.false.
+[] eq h close_sq --> Bool.false.
 [] eq i a --> Bool.false.
 [] eq i b --> Bool.false.
 [] eq i c --> Bool.false.
@@ -694,6 +712,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq i dot --> Bool.false.
 [] eq i new_line --> Bool.false.
 [] eq i minus --> Bool.false.
+[] eq i open_sq --> Bool.false.
+[] eq i close_sq --> Bool.false.
 [] eq j a --> Bool.false.
 [] eq j b --> Bool.false.
 [] eq j c --> Bool.false.
@@ -763,6 +783,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq j dot --> Bool.false.
 [] eq j new_line --> Bool.false.
 [] eq j minus --> Bool.false.
+[] eq j open_sq --> Bool.false.
+[] eq j close_sq --> Bool.false.
 [] eq k a --> Bool.false.
 [] eq k b --> Bool.false.
 [] eq k c --> Bool.false.
@@ -832,6 +854,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq k dot --> Bool.false.
 [] eq k new_line --> Bool.false.
 [] eq k minus --> Bool.false.
+[] eq k open_sq --> Bool.false.
+[] eq k close_sq --> Bool.false.
 [] eq l a --> Bool.false.
 [] eq l b --> Bool.false.
 [] eq l c --> Bool.false.
@@ -901,6 +925,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq l dot --> Bool.false.
 [] eq l new_line --> Bool.false.
 [] eq l minus --> Bool.false.
+[] eq l open_sq --> Bool.false.
+[] eq l close_sq --> Bool.false.
 [] eq m a --> Bool.false.
 [] eq m b --> Bool.false.
 [] eq m c --> Bool.false.
@@ -970,6 +996,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq m dot --> Bool.false.
 [] eq m new_line --> Bool.false.
 [] eq m minus --> Bool.false.
+[] eq m open_sq --> Bool.false.
+[] eq m close_sq --> Bool.false.
 [] eq n a --> Bool.false.
 [] eq n b --> Bool.false.
 [] eq n c --> Bool.false.
@@ -1039,6 +1067,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq n dot --> Bool.false.
 [] eq n new_line --> Bool.false.
 [] eq n minus --> Bool.false.
+[] eq n open_sq --> Bool.false.
+[] eq n close_sq --> Bool.false.
 [] eq o a --> Bool.false.
 [] eq o b --> Bool.false.
 [] eq o c --> Bool.false.
@@ -1108,6 +1138,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq o dot --> Bool.false.
 [] eq o new_line --> Bool.false.
 [] eq o minus --> Bool.false.
+[] eq o open_sq --> Bool.false.
+[] eq o close_sq --> Bool.false.
 [] eq p a --> Bool.false.
 [] eq p b --> Bool.false.
 [] eq p c --> Bool.false.
@@ -1177,6 +1209,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq p dot --> Bool.false.
 [] eq p new_line --> Bool.false.
 [] eq p minus --> Bool.false.
+[] eq p open_sq --> Bool.false.
+[] eq p close_sq --> Bool.false.
 [] eq q a --> Bool.false.
 [] eq q b --> Bool.false.
 [] eq q c --> Bool.false.
@@ -1246,6 +1280,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq q dot --> Bool.false.
 [] eq q new_line --> Bool.false.
 [] eq q minus --> Bool.false.
+[] eq q open_sq --> Bool.false.
+[] eq q close_sq --> Bool.false.
 [] eq r a --> Bool.false.
 [] eq r b --> Bool.false.
 [] eq r c --> Bool.false.
@@ -1315,6 +1351,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq r dot --> Bool.false.
 [] eq r new_line --> Bool.false.
 [] eq r minus --> Bool.false.
+[] eq r open_sq --> Bool.false.
+[] eq r close_sq --> Bool.false.
 [] eq s a --> Bool.false.
 [] eq s b --> Bool.false.
 [] eq s c --> Bool.false.
@@ -1384,6 +1422,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq s dot --> Bool.false.
 [] eq s new_line --> Bool.false.
 [] eq s minus --> Bool.false.
+[] eq s open_sq --> Bool.false.
+[] eq s close_sq --> Bool.false.
 [] eq t a --> Bool.false.
 [] eq t b --> Bool.false.
 [] eq t c --> Bool.false.
@@ -1453,6 +1493,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq t dot --> Bool.false.
 [] eq t new_line --> Bool.false.
 [] eq t minus --> Bool.false.
+[] eq t open_sq --> Bool.false.
+[] eq t close_sq --> Bool.false.
 [] eq u a --> Bool.false.
 [] eq u b --> Bool.false.
 [] eq u c --> Bool.false.
@@ -1522,6 +1564,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq u dot --> Bool.false.
 [] eq u new_line --> Bool.false.
 [] eq u minus --> Bool.false.
+[] eq u open_sq --> Bool.false.
+[] eq u close_sq --> Bool.false.
 [] eq v a --> Bool.false.
 [] eq v b --> Bool.false.
 [] eq v c --> Bool.false.
@@ -1591,6 +1635,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq v dot --> Bool.false.
 [] eq v new_line --> Bool.false.
 [] eq v minus --> Bool.false.
+[] eq v open_sq --> Bool.false.
+[] eq v close_sq --> Bool.false.
 [] eq w a --> Bool.false.
 [] eq w b --> Bool.false.
 [] eq w c --> Bool.false.
@@ -1660,6 +1706,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq w dot --> Bool.false.
 [] eq w new_line --> Bool.false.
 [] eq w minus --> Bool.false.
+[] eq w open_sq --> Bool.false.
+[] eq w close_sq --> Bool.false.
 [] eq x a --> Bool.false.
 [] eq x b --> Bool.false.
 [] eq x c --> Bool.false.
@@ -1729,6 +1777,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq x dot --> Bool.false.
 [] eq x new_line --> Bool.false.
 [] eq x minus --> Bool.false.
+[] eq x open_sq --> Bool.false.
+[] eq x close_sq --> Bool.false.
 [] eq y a --> Bool.false.
 [] eq y b --> Bool.false.
 [] eq y c --> Bool.false.
@@ -1798,6 +1848,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq y dot --> Bool.false.
 [] eq y new_line --> Bool.false.
 [] eq y minus --> Bool.false.
+[] eq y open_sq --> Bool.false.
+[] eq y close_sq --> Bool.false.
 [] eq z a --> Bool.false.
 [] eq z b --> Bool.false.
 [] eq z c --> Bool.false.
@@ -1867,6 +1919,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq z dot --> Bool.false.
 [] eq z new_line --> Bool.false.
 [] eq z minus --> Bool.false.
+[] eq z open_sq --> Bool.false.
+[] eq z close_sq --> Bool.false.
 [] eq A a --> Bool.false.
 [] eq A b --> Bool.false.
 [] eq A c --> Bool.false.
@@ -1936,6 +1990,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq A dot --> Bool.false.
 [] eq A new_line --> Bool.false.
 [] eq A minus --> Bool.false.
+[] eq A open_sq --> Bool.false.
+[] eq A close_sq --> Bool.false.
 [] eq B a --> Bool.false.
 [] eq B b --> Bool.false.
 [] eq B c --> Bool.false.
@@ -2005,6 +2061,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq B dot --> Bool.false.
 [] eq B new_line --> Bool.false.
 [] eq B minus --> Bool.false.
+[] eq B open_sq --> Bool.false.
+[] eq B close_sq --> Bool.false.
 [] eq C a --> Bool.false.
 [] eq C b --> Bool.false.
 [] eq C c --> Bool.false.
@@ -2074,6 +2132,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq C dot --> Bool.false.
 [] eq C new_line --> Bool.false.
 [] eq C minus --> Bool.false.
+[] eq C open_sq --> Bool.false.
+[] eq C close_sq --> Bool.false.
 [] eq D a --> Bool.false.
 [] eq D b --> Bool.false.
 [] eq D c --> Bool.false.
@@ -2143,6 +2203,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq D dot --> Bool.false.
 [] eq D new_line --> Bool.false.
 [] eq D minus --> Bool.false.
+[] eq D open_sq --> Bool.false.
+[] eq D close_sq --> Bool.false.
 [] eq E a --> Bool.false.
 [] eq E b --> Bool.false.
 [] eq E c --> Bool.false.
@@ -2212,6 +2274,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq E dot --> Bool.false.
 [] eq E new_line --> Bool.false.
 [] eq E minus --> Bool.false.
+[] eq E open_sq --> Bool.false.
+[] eq E close_sq --> Bool.false.
 [] eq F a --> Bool.false.
 [] eq F b --> Bool.false.
 [] eq F c --> Bool.false.
@@ -2281,6 +2345,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq F dot --> Bool.false.
 [] eq F new_line --> Bool.false.
 [] eq F minus --> Bool.false.
+[] eq F open_sq --> Bool.false.
+[] eq F close_sq --> Bool.false.
 [] eq G a --> Bool.false.
 [] eq G b --> Bool.false.
 [] eq G c --> Bool.false.
@@ -2350,6 +2416,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq G dot --> Bool.false.
 [] eq G new_line --> Bool.false.
 [] eq G minus --> Bool.false.
+[] eq G open_sq --> Bool.false.
+[] eq G close_sq --> Bool.false.
 [] eq H a --> Bool.false.
 [] eq H b --> Bool.false.
 [] eq H c --> Bool.false.
@@ -2419,6 +2487,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq H dot --> Bool.false.
 [] eq H new_line --> Bool.false.
 [] eq H minus --> Bool.false.
+[] eq H open_sq --> Bool.false.
+[] eq H close_sq --> Bool.false.
 [] eq I a --> Bool.false.
 [] eq I b --> Bool.false.
 [] eq I c --> Bool.false.
@@ -2488,6 +2558,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq I dot --> Bool.false.
 [] eq I new_line --> Bool.false.
 [] eq I minus --> Bool.false.
+[] eq I open_sq --> Bool.false.
+[] eq I close_sq --> Bool.false.
 [] eq J a --> Bool.false.
 [] eq J b --> Bool.false.
 [] eq J c --> Bool.false.
@@ -2557,6 +2629,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq J dot --> Bool.false.
 [] eq J new_line --> Bool.false.
 [] eq J minus --> Bool.false.
+[] eq J open_sq --> Bool.false.
+[] eq J close_sq --> Bool.false.
 [] eq K a --> Bool.false.
 [] eq K b --> Bool.false.
 [] eq K c --> Bool.false.
@@ -2626,6 +2700,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq K dot --> Bool.false.
 [] eq K new_line --> Bool.false.
 [] eq K minus --> Bool.false.
+[] eq K open_sq --> Bool.false.
+[] eq K close_sq --> Bool.false.
 [] eq L a --> Bool.false.
 [] eq L b --> Bool.false.
 [] eq L c --> Bool.false.
@@ -2695,6 +2771,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq L dot --> Bool.false.
 [] eq L new_line --> Bool.false.
 [] eq L minus --> Bool.false.
+[] eq L open_sq --> Bool.false.
+[] eq L close_sq --> Bool.false.
 [] eq M a --> Bool.false.
 [] eq M b --> Bool.false.
 [] eq M c --> Bool.false.
@@ -2764,6 +2842,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq M dot --> Bool.false.
 [] eq M new_line --> Bool.false.
 [] eq M minus --> Bool.false.
+[] eq M open_sq --> Bool.false.
+[] eq M close_sq --> Bool.false.
 [] eq N a --> Bool.false.
 [] eq N b --> Bool.false.
 [] eq N c --> Bool.false.
@@ -2833,6 +2913,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq N dot --> Bool.false.
 [] eq N new_line --> Bool.false.
 [] eq N minus --> Bool.false.
+[] eq N open_sq --> Bool.false.
+[] eq N close_sq --> Bool.false.
 [] eq O a --> Bool.false.
 [] eq O b --> Bool.false.
 [] eq O c --> Bool.false.
@@ -2902,6 +2984,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq O dot --> Bool.false.
 [] eq O new_line --> Bool.false.
 [] eq O minus --> Bool.false.
+[] eq O open_sq --> Bool.false.
+[] eq O close_sq --> Bool.false.
 [] eq P a --> Bool.false.
 [] eq P b --> Bool.false.
 [] eq P c --> Bool.false.
@@ -2971,6 +3055,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq P dot --> Bool.false.
 [] eq P new_line --> Bool.false.
 [] eq P minus --> Bool.false.
+[] eq P open_sq --> Bool.false.
+[] eq P close_sq --> Bool.false.
 [] eq Q a --> Bool.false.
 [] eq Q b --> Bool.false.
 [] eq Q c --> Bool.false.
@@ -3040,6 +3126,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq Q dot --> Bool.false.
 [] eq Q new_line --> Bool.false.
 [] eq Q minus --> Bool.false.
+[] eq Q open_sq --> Bool.false.
+[] eq Q close_sq --> Bool.false.
 [] eq R a --> Bool.false.
 [] eq R b --> Bool.false.
 [] eq R c --> Bool.false.
@@ -3109,6 +3197,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq R dot --> Bool.false.
 [] eq R new_line --> Bool.false.
 [] eq R minus --> Bool.false.
+[] eq R open_sq --> Bool.false.
+[] eq R close_sq --> Bool.false.
 [] eq S a --> Bool.false.
 [] eq S b --> Bool.false.
 [] eq S c --> Bool.false.
@@ -3178,6 +3268,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq S dot --> Bool.false.
 [] eq S new_line --> Bool.false.
 [] eq S minus --> Bool.false.
+[] eq S open_sq --> Bool.false.
+[] eq S close_sq --> Bool.false.
 [] eq T a --> Bool.false.
 [] eq T b --> Bool.false.
 [] eq T c --> Bool.false.
@@ -3247,6 +3339,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq T dot --> Bool.false.
 [] eq T new_line --> Bool.false.
 [] eq T minus --> Bool.false.
+[] eq T open_sq --> Bool.false.
+[] eq T close_sq --> Bool.false.
 [] eq U a --> Bool.false.
 [] eq U b --> Bool.false.
 [] eq U c --> Bool.false.
@@ -3316,6 +3410,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq U dot --> Bool.false.
 [] eq U new_line --> Bool.false.
 [] eq U minus --> Bool.false.
+[] eq U open_sq --> Bool.false.
+[] eq U close_sq --> Bool.false.
 [] eq V a --> Bool.false.
 [] eq V b --> Bool.false.
 [] eq V c --> Bool.false.
@@ -3385,6 +3481,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq V dot --> Bool.false.
 [] eq V new_line --> Bool.false.
 [] eq V minus --> Bool.false.
+[] eq V open_sq --> Bool.false.
+[] eq V close_sq --> Bool.false.
 [] eq W a --> Bool.false.
 [] eq W b --> Bool.false.
 [] eq W c --> Bool.false.
@@ -3454,6 +3552,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq W dot --> Bool.false.
 [] eq W new_line --> Bool.false.
 [] eq W minus --> Bool.false.
+[] eq W open_sq --> Bool.false.
+[] eq W close_sq --> Bool.false.
 [] eq X a --> Bool.false.
 [] eq X b --> Bool.false.
 [] eq X c --> Bool.false.
@@ -3523,6 +3623,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq X dot --> Bool.false.
 [] eq X new_line --> Bool.false.
 [] eq X minus --> Bool.false.
+[] eq X open_sq --> Bool.false.
+[] eq X close_sq --> Bool.false.
 [] eq Y a --> Bool.false.
 [] eq Y b --> Bool.false.
 [] eq Y c --> Bool.false.
@@ -3592,6 +3694,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq Y dot --> Bool.false.
 [] eq Y new_line --> Bool.false.
 [] eq Y minus --> Bool.false.
+[] eq Y open_sq --> Bool.false.
+[] eq Y close_sq --> Bool.false.
 [] eq Z a --> Bool.false.
 [] eq Z b --> Bool.false.
 [] eq Z c --> Bool.false.
@@ -3661,6 +3765,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq Z dot --> Bool.false.
 [] eq Z new_line --> Bool.false.
 [] eq Z minus --> Bool.false.
+[] eq Z open_sq --> Bool.false.
+[] eq Z close_sq --> Bool.false.
 [] eq 0 a --> Bool.false.
 [] eq 0 b --> Bool.false.
 [] eq 0 c --> Bool.false.
@@ -3730,6 +3836,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 0 dot --> Bool.false.
 [] eq 0 new_line --> Bool.false.
 [] eq 0 minus --> Bool.false.
+[] eq 0 open_sq --> Bool.false.
+[] eq 0 close_sq --> Bool.false.
 [] eq 1 a --> Bool.false.
 [] eq 1 b --> Bool.false.
 [] eq 1 c --> Bool.false.
@@ -3799,6 +3907,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 1 dot --> Bool.false.
 [] eq 1 new_line --> Bool.false.
 [] eq 1 minus --> Bool.false.
+[] eq 1 open_sq --> Bool.false.
+[] eq 1 close_sq --> Bool.false.
 [] eq 2 a --> Bool.false.
 [] eq 2 b --> Bool.false.
 [] eq 2 c --> Bool.false.
@@ -3868,6 +3978,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 2 dot --> Bool.false.
 [] eq 2 new_line --> Bool.false.
 [] eq 2 minus --> Bool.false.
+[] eq 2 open_sq --> Bool.false.
+[] eq 2 close_sq --> Bool.false.
 [] eq 3 a --> Bool.false.
 [] eq 3 b --> Bool.false.
 [] eq 3 c --> Bool.false.
@@ -3937,6 +4049,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 3 dot --> Bool.false.
 [] eq 3 new_line --> Bool.false.
 [] eq 3 minus --> Bool.false.
+[] eq 3 open_sq --> Bool.false.
+[] eq 3 close_sq --> Bool.false.
 [] eq 4 a --> Bool.false.
 [] eq 4 b --> Bool.false.
 [] eq 4 c --> Bool.false.
@@ -4006,6 +4120,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 4 dot --> Bool.false.
 [] eq 4 new_line --> Bool.false.
 [] eq 4 minus --> Bool.false.
+[] eq 4 open_sq --> Bool.false.
+[] eq 4 close_sq --> Bool.false.
 [] eq 5 a --> Bool.false.
 [] eq 5 b --> Bool.false.
 [] eq 5 c --> Bool.false.
@@ -4075,6 +4191,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 5 dot --> Bool.false.
 [] eq 5 new_line --> Bool.false.
 [] eq 5 minus --> Bool.false.
+[] eq 5 open_sq --> Bool.false.
+[] eq 5 close_sq --> Bool.false.
 [] eq 6 a --> Bool.false.
 [] eq 6 b --> Bool.false.
 [] eq 6 c --> Bool.false.
@@ -4144,6 +4262,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 6 dot --> Bool.false.
 [] eq 6 new_line --> Bool.false.
 [] eq 6 minus --> Bool.false.
+[] eq 6 open_sq --> Bool.false.
+[] eq 6 close_sq --> Bool.false.
 [] eq 7 a --> Bool.false.
 [] eq 7 b --> Bool.false.
 [] eq 7 c --> Bool.false.
@@ -4213,6 +4333,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 7 dot --> Bool.false.
 [] eq 7 new_line --> Bool.false.
 [] eq 7 minus --> Bool.false.
+[] eq 7 open_sq --> Bool.false.
+[] eq 7 close_sq --> Bool.false.
 [] eq 8 a --> Bool.false.
 [] eq 8 b --> Bool.false.
 [] eq 8 c --> Bool.false.
@@ -4282,6 +4404,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 8 dot --> Bool.false.
 [] eq 8 new_line --> Bool.false.
 [] eq 8 minus --> Bool.false.
+[] eq 8 open_sq --> Bool.false.
+[] eq 8 close_sq --> Bool.false.
 [] eq 9 a --> Bool.false.
 [] eq 9 b --> Bool.false.
 [] eq 9 c --> Bool.false.
@@ -4351,6 +4475,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq 9 dot --> Bool.false.
 [] eq 9 new_line --> Bool.false.
 [] eq 9 minus --> Bool.false.
+[] eq 9 open_sq --> Bool.false.
+[] eq 9 close_sq --> Bool.false.
 [] eq space a --> Bool.false.
 [] eq space b --> Bool.false.
 [] eq space c --> Bool.false.
@@ -4420,6 +4546,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq space dot --> Bool.false.
 [] eq space new_line --> Bool.false.
 [] eq space minus --> Bool.false.
+[] eq space open_sq --> Bool.false.
+[] eq space close_sq --> Bool.false.
 [] eq comma a --> Bool.false.
 [] eq comma b --> Bool.false.
 [] eq comma c --> Bool.false.
@@ -4489,6 +4617,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq comma dot --> Bool.false.
 [] eq comma new_line --> Bool.false.
 [] eq comma minus --> Bool.false.
+[] eq comma open_sq --> Bool.false.
+[] eq comma close_sq --> Bool.false.
 [] eq colon a --> Bool.false.
 [] eq colon b --> Bool.false.
 [] eq colon c --> Bool.false.
@@ -4558,6 +4688,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq colon dot --> Bool.false.
 [] eq colon new_line --> Bool.false.
 [] eq colon minus --> Bool.false.
+[] eq colon open_sq --> Bool.false.
+[] eq colon close_sq --> Bool.false.
 [] eq semicolon a --> Bool.false.
 [] eq semicolon b --> Bool.false.
 [] eq semicolon c --> Bool.false.
@@ -4627,6 +4759,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq semicolon dot --> Bool.false.
 [] eq semicolon new_line --> Bool.false.
 [] eq semicolon minus --> Bool.false.
+[] eq semicolon open_sq --> Bool.false.
+[] eq semicolon close_sq --> Bool.false.
 [] eq dot a --> Bool.false.
 [] eq dot b --> Bool.false.
 [] eq dot c --> Bool.false.
@@ -4696,6 +4830,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq dot dot --> Bool.true.
 [] eq dot new_line --> Bool.false.
 [] eq dot minus --> Bool.false.
+[] eq dot open_sq --> Bool.false.
+[] eq dot close_sq --> Bool.false.
 [] eq new_line a --> Bool.false.
 [] eq new_line b --> Bool.false.
 [] eq new_line c --> Bool.false.
@@ -4765,6 +4901,8 @@ private def eq : TT -> TT -> Bool.T.
 [] eq new_line dot --> Bool.false.
 [] eq new_line new_line --> Bool.true.
 [] eq new_line minus --> Bool.false.
+[] eq new_line open_sq --> Bool.false.
+[] eq new_line close_sq --> Bool.false.
 [] eq minus a --> Bool.false.
 [] eq minus b --> Bool.false.
 [] eq minus c --> Bool.false.
@@ -4834,5 +4972,150 @@ private def eq : TT -> TT -> Bool.T.
 [] eq minus dot --> Bool.false.
 [] eq minus new_line --> Bool.false.
 [] eq minus minus --> Bool.true.
+[] eq minus open_sq --> Bool.false.
+[] eq minus close_sq --> Bool.false.
+[] eq open_sq a --> Bool.false.
+[] eq open_sq b --> Bool.false.
+[] eq open_sq c --> Bool.false.
+[] eq open_sq d --> Bool.false.
+[] eq open_sq e --> Bool.false.
+[] eq open_sq f --> Bool.false.
+[] eq open_sq g --> Bool.false.
+[] eq open_sq h --> Bool.false.
+[] eq open_sq i --> Bool.false.
+[] eq open_sq j --> Bool.false.
+[] eq open_sq k --> Bool.false.
+[] eq open_sq l --> Bool.false.
+[] eq open_sq m --> Bool.false.
+[] eq open_sq n --> Bool.false.
+[] eq open_sq o --> Bool.false.
+[] eq open_sq p --> Bool.false.
+[] eq open_sq q --> Bool.false.
+[] eq open_sq r --> Bool.false.
+[] eq open_sq s --> Bool.false.
+[] eq open_sq t --> Bool.false.
+[] eq open_sq u --> Bool.false.
+[] eq open_sq v --> Bool.false.
+[] eq open_sq w --> Bool.false.
+[] eq open_sq x --> Bool.false.
+[] eq open_sq y --> Bool.false.
+[] eq open_sq z --> Bool.false.
+[] eq open_sq A --> Bool.false.
+[] eq open_sq B --> Bool.false.
+[] eq open_sq C --> Bool.false.
+[] eq open_sq D --> Bool.false.
+[] eq open_sq E --> Bool.false.
+[] eq open_sq F --> Bool.false.
+[] eq open_sq G --> Bool.false.
+[] eq open_sq H --> Bool.false.
+[] eq open_sq I --> Bool.false.
+[] eq open_sq J --> Bool.false.
+[] eq open_sq K --> Bool.false.
+[] eq open_sq L --> Bool.false.
+[] eq open_sq M --> Bool.false.
+[] eq open_sq N --> Bool.false.
+[] eq open_sq O --> Bool.false.
+[] eq open_sq P --> Bool.false.
+[] eq open_sq Q --> Bool.false.
+[] eq open_sq R --> Bool.false.
+[] eq open_sq S --> Bool.false.
+[] eq open_sq T --> Bool.false.
+[] eq open_sq U --> Bool.false.
+[] eq open_sq V --> Bool.false.
+[] eq open_sq W --> Bool.false.
+[] eq open_sq X --> Bool.false.
+[] eq open_sq Y --> Bool.false.
+[] eq open_sq Z --> Bool.false.
+[] eq open_sq 0 --> Bool.false.
+[] eq open_sq 1 --> Bool.false.
+[] eq open_sq 2 --> Bool.false.
+[] eq open_sq 3 --> Bool.false.
+[] eq open_sq 4 --> Bool.false.
+[] eq open_sq 5 --> Bool.false.
+[] eq open_sq 6 --> Bool.false.
+[] eq open_sq 7 --> Bool.false.
+[] eq open_sq 8 --> Bool.false.
+[] eq open_sq 9 --> Bool.false.
+[] eq open_sq space --> Bool.false.
+[] eq open_sq comma --> Bool.false.
+[] eq open_sq colon --> Bool.false.
+[] eq open_sq semicolon --> Bool.false.
+[] eq open_sq dot --> Bool.false.
+[] eq open_sq new_line --> Bool.false.
+[] eq open_sq minus --> Bool.false.
+[] eq open_sq open_sq --> Bool.true.
+[] eq open_sq close_sq --> Bool.false.
+[] eq close_sq a --> Bool.false.
+[] eq close_sq b --> Bool.false.
+[] eq close_sq c --> Bool.false.
+[] eq close_sq d --> Bool.false.
+[] eq close_sq e --> Bool.false.
+[] eq close_sq f --> Bool.false.
+[] eq close_sq g --> Bool.false.
+[] eq close_sq h --> Bool.false.
+[] eq close_sq i --> Bool.false.
+[] eq close_sq j --> Bool.false.
+[] eq close_sq k --> Bool.false.
+[] eq close_sq l --> Bool.false.
+[] eq close_sq m --> Bool.false.
+[] eq close_sq n --> Bool.false.
+[] eq close_sq o --> Bool.false.
+[] eq close_sq p --> Bool.false.
+[] eq close_sq q --> Bool.false.
+[] eq close_sq r --> Bool.false.
+[] eq close_sq s --> Bool.false.
+[] eq close_sq t --> Bool.false.
+[] eq close_sq u --> Bool.false.
+[] eq close_sq v --> Bool.false.
+[] eq close_sq w --> Bool.false.
+[] eq close_sq x --> Bool.false.
+[] eq close_sq y --> Bool.false.
+[] eq close_sq z --> Bool.false.
+[] eq close_sq A --> Bool.false.
+[] eq close_sq B --> Bool.false.
+[] eq close_sq C --> Bool.false.
+[] eq close_sq D --> Bool.false.
+[] eq close_sq E --> Bool.false.
+[] eq close_sq F --> Bool.false.
+[] eq close_sq G --> Bool.false.
+[] eq close_sq H --> Bool.false.
+[] eq close_sq I --> Bool.false.
+[] eq close_sq J --> Bool.false.
+[] eq close_sq K --> Bool.false.
+[] eq close_sq L --> Bool.false.
+[] eq close_sq M --> Bool.false.
+[] eq close_sq N --> Bool.false.
+[] eq close_sq O --> Bool.false.
+[] eq close_sq P --> Bool.false.
+[] eq close_sq Q --> Bool.false.
+[] eq close_sq R --> Bool.false.
+[] eq close_sq S --> Bool.false.
+[] eq close_sq T --> Bool.false.
+[] eq close_sq U --> Bool.false.
+[] eq close_sq V --> Bool.false.
+[] eq close_sq W --> Bool.false.
+[] eq close_sq X --> Bool.false.
+[] eq close_sq Y --> Bool.false.
+[] eq close_sq Z --> Bool.false.
+[] eq close_sq 0 --> Bool.false.
+[] eq close_sq 1 --> Bool.false.
+[] eq close_sq 2 --> Bool.false.
+[] eq close_sq 3 --> Bool.false.
+[] eq close_sq 4 --> Bool.false.
+[] eq close_sq 5 --> Bool.false.
+[] eq close_sq 6 --> Bool.false.
+[] eq close_sq 7 --> Bool.false.
+[] eq close_sq 8 --> Bool.false.
+[] eq close_sq 9 --> Bool.false.
+[] eq close_sq space --> Bool.false.
+[] eq close_sq comma --> Bool.false.
+[] eq close_sq colon --> Bool.false.
+[] eq close_sq semicolon --> Bool.false.
+[] eq close_sq dot --> Bool.false.
+[] eq close_sq new_line --> Bool.false.
+[] eq close_sq minus --> Bool.false.
+[] eq close_sq open_sq --> Bool.false.
+[] eq close_sq close_sq --> Bool.true.
+
 
 def Eq : Eq.T tt := Eq.Cons tt eq.

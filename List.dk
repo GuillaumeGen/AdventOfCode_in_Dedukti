@@ -92,3 +92,19 @@ def intersect : (a : Base.type) -> Eq.T a -> T a -> T a -> T a.
 
 def head : (a : Base.type) -> T a -> Base.El a.
 [hd] head _ (cons _ hd _) --> hd.
+
+def on : (a : Base.type) -> UnaryNat.T -> (Base.El a -> Base.El a) -> T a -> T a.
+[a, f, hd, tl] on a UnaryNat.0 f (cons _ hd tl) --> cons a (f hd) tl.
+[a, n, f, hd, tl] on a (UnaryNat.S n) f (cons _ hd tl) --> cons a hd (on a n f tl).
+
+def init : (a : Base.type) -> UnaryNat.T -> Base.El a -> T a.
+[a] init a UnaryNat.0 _ --> nil a.
+[a, n, x] init a (UnaryNat.S n) x --> cons a x (init a n x).
+
+def get : (a : Base.type) -> UnaryNat.T -> T a -> Base.El a.
+[hd] get _ UnaryNat.0 (cons _ hd _) --> hd.
+[a, n , tl] get a (UnaryNat.S n) (cons _ _ tl) --> get a n tl.
+
+def concat : (a : Base.type) -> T a -> T a -> T a.
+[l] concat _ (nil _) l --> l.
+[a, hd, tl, l] concat a (cons _ hd tl) l --> cons a hd (concat a tl l).

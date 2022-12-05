@@ -1,0 +1,14 @@
+def process_line_op_aux2 : List.T String.t -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> List.T String.t.
+[l, n, from, to] process_line_op_aux2 l n from to --> process_line_op_aux2 (List.on String.t from (List.drop Char.tt n) (List.on String.t to (String.concat (List.prefix Char.tt n (List.get String.t from l))) l)) n from to.
+
+def process_line_op_aux1 : List.T String.t -> List.T String.t -> List.T String.t.
+[l, s] process_line_op_aux1 l s --> process_line_op_aux2 l (Day5Ex1.parse_field UnaryNat.1 s) (UnaryNat.prev (Day5Ex1.parse_field UnaryNat.3 s)) (UnaryNat.prev (Day5Ex1.parse_field UnaryNat.5 s)).
+
+def process_line_op : List.T String.t -> String.T -> List.T String.t.
+[l, s] process_line_op l s --> process_line_op_aux1 l (List.split Char.tt Char.Eq Char.space s).
+
+def final_stack := List.fold_left String.t (List.t String.t) process_line_op Day5Ex1.stack Day5Ex1.operation_strings.
+
+def result := List.map String.t Char.tt (List.head Char.tt) final_stack.
+
+#EVAL result.

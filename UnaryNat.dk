@@ -10,7 +10,38 @@ def 2 := S 1.
 def 3 := S 2.
 def 4 := S 3.
 def 5 := S 4.
+def 6 := S 5.
+def 7 := S 6.
+def 8 := S 7.
+def 9 := S 8.
+def 10 := S 9.
 
 def half : T -> T.
 [] half 0 --> 0.
 [x] half (S (S x)) --> S (half x).
+
+def compare : T -> T -> Ordering.T.
+[] compare 0 0 --> Ordering.EQ.
+[] compare 0 (S _) --> Ordering.LT.
+[] compare (S _) 0 --> Ordering.GT.
+[x, y] compare (S x) (S y) --> compare x y.
+
+def Ord : Ord.T t := Ord.Cons t compare.
+
+def Eq : Eq.T t := Ord.impliesEq t Ord.
+def eq : T -> T -> Bool.T := Eq.eq t Eq.
+
+def add : T -> T -> T.
+[y] add 0 y --> y.
+[x] add x 0 --> x.
+[x, y] add (S x) y --> S (add x y).
+[x, y] add x (S y) --> S (add x y).
+
+def mult : T -> T -> T.
+[] mult 0 _ --> 0.
+[] mult _ 0 --> 0.
+[x, y] mult (S x) y --> add y (mult x y).
+[x, y] mult x (S y) --> add x (mult x y).
+
+def prev : T -> T.
+[x] prev (S x) --> x.

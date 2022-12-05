@@ -1,0 +1,34 @@
+def lines := List.split String.t String.Eq String.end (String.lines Input5.content).
+def starting_pos_strings := List.rev String.t (List.head (List.t String.t) lines).
+def nb_stacks := UnaryNat.half (UnaryNat.S (UnaryNat.half (List.length Char.tt (List.head String.t starting_pos_strings)))).
+def empty_stack := List.init String.t nb_stacks String.end.
+
+def cons_if_alpha (c : Char.TT) (s : String.T) : String.T := Bool.if_then_else String.t (Char.eq c Char.space) s (String.cons c s).
+
+def process_line_init_aux :  String.T -> List.T String.t -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> Ordering.T -> List.T String.t.
+[s, l, list_index, str_index, str_length] process_line_init_aux s l list_index str_index str_length Ordering.LT--> process_line_init_aux s (List.on String.t list_index (cons_if_alpha (List.get Char.tt str_index s)) l) (UnaryNat.S list_index) (UnaryNat.S (UnaryNat.S (UnaryNat.S (UnaryNat.S str_index)))) str_length (UnaryNat.compare (UnaryNat.S (UnaryNat.S (UnaryNat.S (UnaryNat.S str_index)))) str_length).
+[l] process_line_init_aux _ l _ _ _ Ordering.GT--> l.
+
+def process_line_init : List.T String.t -> String.T -> List.T String.t.
+[s, l] process_line_init l s --> process_line_init_aux s l UnaryNat.0 (UnaryNat.1) (List.length Char.tt s) (UnaryNat.compare UnaryNat.1 (List.length Char.tt s)).
+
+def stack := List.fold_left String.t (List.t String.t) process_line_init empty_stack (List.drop String.t UnaryNat.1 starting_pos_strings).
+
+def parse_field (n : UnaryNat.T) (s : List.T String.t) := DecimalNonZeroNat.parseUnary (List.get String.t n s).
+
+def process_line_op_aux2 : List.T String.t -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> List.T String.t.
+[l] process_line_op_aux2 l UnaryNat.0 _ _ --> l.
+[l, n, from, to] process_line_op_aux2 l (UnaryNat.S n) from to --> process_line_op_aux2 (List.on String.t from (List.drop Char.tt UnaryNat.1) (List.on String.t to (String.cons (List.head Char.tt (List.get String.t from l))) l)) n from to.
+
+def process_line_op_aux1 : List.T String.t -> List.T String.t -> List.T String.t.
+[l, s] process_line_op_aux1 l s --> process_line_op_aux2 l (parse_field UnaryNat.1 s) (UnaryNat.prev (parse_field UnaryNat.3 s)) (UnaryNat.prev (parse_field UnaryNat.5 s)).
+
+def process_line_op : List.T String.t -> String.T -> List.T String.t.
+[l, s] process_line_op l s --> process_line_op_aux1 l (List.split Char.tt Char.Eq Char.space s).
+
+def operation_strings := List.get (List.t String.t) UnaryNat.1 lines.
+def final_stack := List.fold_left String.t (List.t String.t) process_line_op stack operation_strings.
+
+def result := List.map String.t Char.tt (List.head Char.tt) final_stack.
+
+#EVAL result.

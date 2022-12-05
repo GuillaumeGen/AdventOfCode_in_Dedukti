@@ -28,6 +28,12 @@ def deduktify(s):
         elif c == "-":
             res += "String.cons Char.minus ("
             end += ")"
+        elif c == "[":
+            res += "String.cons Char.open_sq ("
+            end += ")"
+        elif c == "]":
+            res += "String.cons Char.close_sq ("
+            end += ")"
         else:
             print("UNEXPECTED CHARACTER" + c)
     return (res + "String.end" + end + '.')
