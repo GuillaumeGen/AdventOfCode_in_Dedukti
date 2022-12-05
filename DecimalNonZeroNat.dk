@@ -1186,3 +1186,7 @@ def add_aux : Bit.T -> T -> T -> T.
 
 def add : T -> T -> T.
 [x, y] add x y --> add_aux Bit.0 x y.
+
+def fromUnary : UnaryNat.T -> T.
+[] fromUnary (UnaryNat.S UnaryNat.0) --> 1.
+[x] fromUnary (UnaryNat.S (UnaryNat.S x)) --> succ (fromUnary (UnaryNat.S x)).

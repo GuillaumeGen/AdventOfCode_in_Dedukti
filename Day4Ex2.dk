@@ -1,0 +1,20 @@
+def unpair_fields (s : String.T) := List.map String.t DecimalNonZeroNat.t DecimalNonZeroNat.parse (List.split Char.tt Char.Eq Char.minus s).
+
+def small_overlap_aux : Ordering.T -> Ordering.T -> Bool.T.
+[] small_overlap_aux Ordering.EQ _ --> Bool.true.
+[] small_overlap_aux _ Ordering.EQ --> Bool.true.
+[] small_overlap_aux Ordering.LT Ordering.LT --> Bool.false.
+[] small_overlap_aux Ordering.LT Ordering.GT --> Bool.true.
+[] small_overlap_aux Ordering.GT Ordering.LT --> Bool.true.
+[] small_overlap_aux Ordering.GT Ordering.GT --> Bool.false.
+
+def small_overlap : List.T (List.t DecimalNonZeroNat.t) -> Bool.T.
+[a, b, c, d] small_overlap (List.cons _ (List.cons _ a (List.cons _ b (List.nil _))) (List.cons _ (List.cons _ c (List.cons _ d (List.nil _))) (List.nil _))) --> small_overlap_aux (DecimalNonZeroNat.compare a d) (DecimalNonZeroNat.compare b c).
+
+def lines : List.T String.t := String.lines Input4.content.
+def list_pairs := List.map String.t (List.t String.t) (List.split Char.tt Char.Eq Char.comma) lines.
+def list_of_list_of_values := List.map (List.t String.t) (List.t (List.t DecimalNonZeroNat.t)) (List.map String.t (List.t DecimalNonZeroNat.t) unpair_fields) list_pairs.
+def list_of_bools := List.map (List.t (List.t DecimalNonZeroNat.t)) Bool.t small_overlap list_of_list_of_values.
+def result := DecimalNonZeroNat.fromUnary (List.length (Bool.t) (List.filter Bool.t (x => x) list_of_bools)).
+
+#EVAL DecimalNonZeroNat.print result.
