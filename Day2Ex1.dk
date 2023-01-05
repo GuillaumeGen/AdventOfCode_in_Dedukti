@@ -16,7 +16,7 @@ def CX := C_ (sp _X).
 def CY := C_ (sp _Y).
 def CZ := C_ (sp _Z).
 
-private def points_aux : Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> DecimalNonZeroNat.T.
+private points_aux : Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> Bool.T -> DecimalNonZeroNat.T.
 [] points_aux Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.4.
 [] points_aux Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.8.
 [] points_aux Bool.false Bool.false Bool.true Bool.false Bool.false Bool.false Bool.false Bool.false Bool.false --> DecimalNonZeroNat.3.

@@ -43,5 +43,15 @@ def mult : T -> T -> T.
 [x, y] mult (S x) y --> add y (mult x y).
 [x, y] mult x (S y) --> add x (mult x y).
 
+def 20 := mult 10 2.
+def 30 := mult 10 3.
+def 40 := mult 10 4.
+def 50 := mult 10 5.
+def 60 := mult 10 6.
+def 70 := mult 10 7.
+def 80 := mult 10 8.
+def 90 := mult 10 9.
+def 100 := mult 10 10.
+
 def prev : T -> T.
 [x] prev (S x) --> x.

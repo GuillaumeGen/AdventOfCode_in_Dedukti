@@ -5,7 +5,7 @@ T : Base.type -> Type.
 nil : (a : Base.type) -> T a.
 cons : (a : Base.type) -> Base.El a -> T a -> T a.
 
-private def is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
+private is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
 [] is_eq _ _ (nil _) (nil _) --> Bool.true.
 [] is_eq _ _ (nil _) (cons _ _ _) --> Bool.false.
 [] is_eq _ _ (cons _ _ _) (nil _) --> Bool.false.
@@ -13,7 +13,7 @@ private def is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
 
 def Eq (a : Base.type) (eqA : Eq.T a) : Eq.T (t a) := Eq.Cons (t a) (is_eq a eqA).
 
-private def rev_aux : (a : Base.type) -> T a -> T a -> T a.
+private rev_aux : (a : Base.type) -> T a -> T a -> T a.
 [acc] rev_aux _ acc (nil _) --> acc.
 [a, acc, x, tl] rev_aux a acc (cons _ x tl) --> rev_aux a (cons a x acc) tl.
 
@@ -24,7 +24,7 @@ def map : (a : Base.type) -> (b : Base.type) -> (Base.El a -> Base.El b) -> T a 
 [b] map _ b _ (nil _) --> nil b.
 [a, b, f, x, tl] map a b f (cons _ x tl) --> cons b (f x) (map a b f tl).
 
-private def split_aux : (a : Base.type) -> Eq.T a -> Base.El a -> T (t a) -> T a -> T a -> T (t a).
+private split_aux : (a : Base.type) -> Eq.T a -> Base.El a -> T (t a) -> T a -> T a -> T (t a).
 [a, acc_glob, acc_loc] split_aux a _ _ acc_glob acc_loc (nil _) --> rev (t a) (cons (t a) (rev a acc_loc) acc_glob).
 [a, eqA, x, acc_glob, acc_loc, hd, tl] split_aux a eqA x acc_glob acc_loc (cons _ hd tl) -->
     Bool.if_then_else (t (t a)) (Eq.eq a eqA x hd)
@@ -57,7 +57,7 @@ def drop : (a : Base.type) -> UnaryNat.T -> T a -> T a.
 [a, n, tl] drop a (UnaryNat.S n) (cons _ _ tl) --> drop a n tl.
 
 def insert : (a : Base.type) -> Ord.T a -> Base.El a -> T a -> T a.
-private def insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
+private insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
 [a, x] insert a _ x (nil _) --> cons a x (nil a).
 [a, ordA, x, hd, tl] insert a ordA x (cons _ hd tl) --> insert_aux a ordA (Ord.compare a ordA x hd) x hd tl.
 [a, ordA, x, hd, tl] insert_aux a ordA Ordering.LT x hd tl --> cons a hd (insert a ordA x tl).
@@ -67,7 +67,7 @@ private def insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -
 def sort : (a : Base.type) -> Ord.T a -> T a -> T a.
 [a, ordA, l] sort a ordA l --> fold_right a (t a) (insert a ordA) l (nil a).
 
-private def max_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> Base.El a.
+private max_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> Base.El a.
 [x] max_aux _ _ Ordering.EQ x _ (nil _) --> x.
 [y] max_aux _ _ Ordering.LT _ y (nil _) --> y.
 [x] max_aux _ _ Ordering.GT x _ (nil _) --> x.
@@ -108,3 +108,7 @@ def get : (a : Base.type) -> UnaryNat.T -> T a -> Base.El a.
 def concat : (a : Base.type) -> T a -> T a -> T a.
 [l] concat _ (nil _) l --> l.
 [a, hd, tl, l] concat a (cons _ hd tl) l --> cons a hd (concat a tl l).
+
+def breakAt : (a : Base.type) -> UnaryNat.T -> T a -> Pair.T (t a) (t a).
+[a, l] breakAt a UnaryNat.0 l --> Pair.pair (t a) (t a) (nil a) l.
+[a, n, hd, tl] breakAt a (UnaryNat.S n) (cons _ hd tl) --> Pair.first (t a) (t a) (t a) (cons a hd) (breakAt a n tl).

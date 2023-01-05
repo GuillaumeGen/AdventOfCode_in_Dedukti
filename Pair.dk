@@ -1,0 +1,29 @@
+T : (a : Base.type) -> (b : Base.type) -> Type.
+t : (a : Base.type) -> (b : Base.type) -> Base.type.
+[a, b] Base.El (t a b) --> T a b.
+
+pair : (a : Base.type) -> (b : Base.type) -> Base.El a -> Base.El b -> T a b.
+
+def fst : (a : Base.type) -> (b : Base.type) -> T a b -> Base.El a.
+[x] fst _ _ (pair _ _ x _) --> x.
+
+def snd : (a : Base.type) -> (b : Base.type) -> T a b -> Base.El b.
+[y] snd _ _ (pair _ _ _ y) --> y.
+
+private is_eq : (a : Base.type) -> (b : Base.type) -> Eq.T a -> Eq.T b -> T a b -> T a b -> Bool.T.
+[a, b, eqA, eqB, x1, x2, y1, y2] is_eq a b eqA eqB (pair _ _ x1 y1) (pair _ _ x2 y2) -->
+Bool.and (Eq.eq a eqA x1 x2) (Eq.eq b eqB y1 y2).
+
+def Eq (a : Base.type) (b: Base.type) (eqA : Eq.T a) (eqB : Eq.T b) : Eq.T (t a b) := Eq.Cons (t a b) (is_eq a b eqA eqB).
+
+def first : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El a -> Base.El b) -> T a c -> T b c.
+[b, c, f, x, y] first _ b c f (pair _ _ x y) --> pair b c (f x) y.
+
+def second : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El b -> Base.El c) -> T a b -> T a c.
+[a, c, f, x, y] second a _ c f (pair _ _ x y) --> pair a c x (f y).
+
+def uncurry : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El a -> Base.El b -> Base.El c) -> T a b -> Base.El c.
+[f, x, y] uncurry _ _ _ f (pair _ _ x y) --> f x y.
+
+def swap : (a : Base.type) -> (b : Base.type) -> T a b -> T b a.
+[a, b, x, y] swap a b (pair _ _ x y) --> pair b a y x.

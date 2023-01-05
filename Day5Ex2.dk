@@ -1,5 +1,12 @@
+def onWithRes : (a : Base.type) -> (b : Base.type) -> UnaryNat.T -> (Base.El a -> Pair.T a b) -> List.T a -> Pair.T (List.t a) b.
+[a, b, f, hd, tl] onWithRes a b UnaryNat.0 f (List.cons _ hd tl) --> Pair.first a (List.t a) b (x => List.cons a x tl) (f hd).
+[a, b, n, f, hd, tl] onWithRes a b (UnaryNat.S n) f (List.cons _ hd tl) --> Pair.first (List.t a) (List.t a) b (List.cons a hd) (onWithRes a b n f tl).
+
+def onBoth : (a : Base.type) -> (b : Base.type) -> UnaryNat.T -> UnaryNat.T -> (Base.El a -> Pair.T a b) -> (Base.El a -> Base.El b -> Base.El a) -> List.T a -> List.T a.
+[a, b, i, j, f, g, l] onBoth a b i j f g l --> Pair.uncurry (List.t a) b (List.t a) (ll => res => List.on a j (x => g x res) ll) (onWithRes a b i f l).
+
 def process_line_op_aux2 : List.T String.t -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> List.T String.t.
-[l, n, from, to] process_line_op_aux2 l n from to --> process_line_op_aux2 (List.on String.t from (List.drop Char.tt n) (List.on String.t to (String.concat (List.prefix Char.tt n (List.get String.t from l))) l)) n from to.
+[l, n, from, to] process_line_op_aux2 l n from to --> onBoth String.t String.t from to (lFrom => Pair.swap String.t String.t (List.breakAt Char.tt n lFrom)) (lTo => prefix => String.concat prefix lTo) l.
 
 def process_line_op_aux1 : List.T String.t -> List.T String.t -> List.T String.t.
 [l, s] process_line_op_aux1 l s --> process_line_op_aux2 l (Day5Ex1.parse_field UnaryNat.1 s) (UnaryNat.prev (Day5Ex1.parse_field UnaryNat.3 s)) (UnaryNat.prev (Day5Ex1.parse_field UnaryNat.5 s)).
