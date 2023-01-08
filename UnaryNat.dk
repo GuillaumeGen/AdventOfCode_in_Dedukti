@@ -15,6 +15,15 @@ def 7 := S 6.
 def 8 := S 7.
 def 9 := S 8.
 def 10 := S 9.
+def 11 := S 10.
+def 12 := S 11.
+def 13 := S 12.
+def 14 := S 13.
+def 15 := S 14.
+def 16 := S 15.
+def 17 := S 16.
+def 18 := S 17.
+def 19 := S 18.
 
 def half : T -> T.
 [] half 0 --> 0.

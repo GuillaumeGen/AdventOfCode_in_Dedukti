@@ -112,3 +112,7 @@ def concat : (a : Base.type) -> T a -> T a -> T a.
 def breakAt : (a : Base.type) -> UnaryNat.T -> T a -> Pair.T (t a) (t a).
 [a, l] breakAt a UnaryNat.0 l --> Pair.pair (t a) (t a) (nil a) l.
 [a, n, hd, tl] breakAt a (UnaryNat.S n) (cons _ hd tl) --> Pair.first (t a) (t a) (t a) (cons a hd) (breakAt a n tl).
+
+def allUniques : (a : Base.type) -> Eq.T a -> T a -> Bool.T.
+[] allUniques _ _ (nil _) --> Bool.true.
+[a, eqA, hd, tl] allUniques a eqA (cons _ hd tl) --> Bool.if_then_else Bool.t (contains a eqA hd tl) Bool.false (allUniques a eqA tl).

@@ -1,0 +1,5 @@
+def init := List.breakAt Char.tt UnaryNat.14 Input6.content.
+
+def result := Pair.uncurry String.t String.t (Base.arr DecimalNonZeroNat.t DecimalNonZeroNat.t) Day6Ex1.find_index init (DecimalNonZeroNat.4_ DecimalNonZeroNat.1).
+
+#EVAL (DecimalNonZeroNat.print result).

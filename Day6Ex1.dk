@@ -1,0 +1,8 @@
+def find_index : String.T -> String.T -> DecimalNonZeroNat.T -> DecimalNonZeroNat.T.
+[to_study, hd, tl , acc] find_index to_study (List.cons _ hd tl) acc --> Bool.if_then_else DecimalNonZeroNat.t (List.allUniques Char.tt Char.Eq to_study) acc (find_index (String.concat (String.drop UnaryNat.1 to_study) (String.cons hd String.end)) tl (DecimalNonZeroNat.succ acc)).
+
+def init := List.breakAt Char.tt UnaryNat.4 Input6.content.
+
+def result := Pair.uncurry String.t String.t (Base.arr DecimalNonZeroNat.t DecimalNonZeroNat.t) find_index init DecimalNonZeroNat.4.
+
+#EVAL (DecimalNonZeroNat.print result).

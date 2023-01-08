@@ -1,3 +1,9 @@
 type : Type.
 
 def El : type -> Type.
+
+pi : (a : type) -> (El a -> type) -> type.
+[a, b] El (pi a b) --> (x : El a) -> El (b x).
+
+def arr : type -> type -> type.
+[a, b] arr a b --> pi a (_ => b).
