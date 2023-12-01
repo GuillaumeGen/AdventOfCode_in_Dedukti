@@ -5119,3 +5119,6 @@ def eq : TT -> TT -> Bool.T.
 
 
 def Eq : Eq.T tt := Eq.Cons tt eq.
+
+private digit_list = List.cons tt 0 (List.cons tt 1 (List.cons tt 2 (List.cons tt 3 (List.cons tt 4 (List.cons tt 5 (List.cons tt 6 (List.cons tt 7 (List.cons tt 8 (List.cons tt 9 (List.nil tt))))))))))
+def is_digit (a : TT) : Bool.T := List.contains tt Eq a digit_list.

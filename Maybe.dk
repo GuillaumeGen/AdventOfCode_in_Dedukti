@@ -1,0 +1,14 @@
+T : (a : Base.type) -> Type.
+t : (a : Base.type) -> Base.type.
+[a] Base.El (t a) --> T a.
+
+None : (a : Base.type) -> T a.
+Just : (a : Base.type) -> Base.El a -> T a.
+
+private is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
+[a, eqA] is_eq a eqA (None _) (None _) --> Bool.true.
+[a, eqA, x1] is_eq a eqA (Just _ x1) (None _) --> Bool.false.
+[a, eqA, x2] is_eq a eqA (None _) (Just _ x2) --> Bool.false.
+[a, eqA, x1, x2] is_eq a eqA (Just _ x1) (Just _ x2) --> (Eq.eq a eqA x1 x2).
+
+def Eq (a : Base.type) (eqA : Eq.T a) : Eq.T (t a) := Eq.Cons (t a) (is_eq a eqA).

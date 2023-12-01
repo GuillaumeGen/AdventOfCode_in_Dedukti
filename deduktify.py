@@ -44,6 +44,8 @@ for f in all_files:
     dk_filename = f[:-3] + "dk"
     dk_content = open(dk_filename, 'w')
     string_of_file = content.read()
+    if string_of_file[-1] == "\n":
+        string_of_file = string_of_file[:-1]
     dk_content.write(deduktify(string_of_file))
     content.close()
     dk_content.close()

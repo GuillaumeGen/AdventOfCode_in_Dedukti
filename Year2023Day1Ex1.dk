@@ -1,0 +1,17 @@
+def getFirstLast_aux : String.T -> Maybe.T Char.tt -> Maybe.T Char.tt -> Pair.T Char.tt Char.tt.
+def getFirstLast (s : String.T) : Pair.T Char.tt Char.tt := getFirstLast_aux s (Maybe.None Char.tt) (Maybe.None Char.tt).
+
+[a, b] getFirstLast_aux (List.nil _) (Maybe.Just _ a) (Maybe.Just _ b) --> Pair.pair Char.tt Char.tt a b.
+[a] getFirstLast_aux (List.nil _) (Maybe.Just _ a) (Maybe.None _) --> Pair.pair Char.tt Char.tt a a.
+[x, tl] getFirstLast_aux (List.cons _ x tl) (Maybe.None _) _ --> Bool.if_then_else (Pair.t Char.tt Char.tt) (Char.is_digit x) (getFirstLast_aux tl (Maybe.Just Char.tt x) (Maybe.None Char.tt)) (getFirstLast_aux tl (Maybe.None Char.tt) (Maybe.None Char.tt))
+[x, tl, a, b] getFirstLast_aux (List.cons _ x tl) (Maybe.Just _ a) b --> Bool.if_then_else (Pair.t Char.tt Char.tt) (Char.is_digit x) (getFirstLast_aux tl (Maybe.Just Char.tt a) (Maybe.Just Char.tt x)) (getFirstLast_aux tl (Maybe.Just Char.tt a) b).
+
+def 10xplus (a : UnaryNat.T) (b : UnaryNat.T) := UnaryNat.add (UnaryNat.mult a UnaryNat.10) b.
+
+def numFromFirstAndLast (s : String.T) : UnaryNat.T := Pair.uncurry UnaryNat.t UnaryNat.t UnaryNat.t 10xplus (Pair.second UnaryNat.t Char.tt UnaryNat.t UnaryNat.parseChar (Pair.first Char.tt UnaryNat.t Char.tt UnaryNat.parseChar (getFirstLast s))).
+
+def nums := List.map String.t UnaryNat.t numFromFirstAndLast (String.lines Input2023_1.content).
+
+def result := DecimalNonZeroNat.fromUnary (List.fold_left UnaryNat.t UnaryNat.t UnaryNat.add UnaryNat.0 nums).
+
+#EVAL (DecimalNonZeroNat.print result).

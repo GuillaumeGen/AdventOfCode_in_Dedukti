@@ -64,3 +64,15 @@ def 100 := mult 10 10.
 
 def prev : T -> T.
 [x] prev (S x) --> x.
+
+def parseChar : Char.TT -> T.
+[] parseChar Char.0 --> 0.
+[] parseChar Char.1 --> 1.
+[] parseChar Char.2 --> 2.
+[] parseChar Char.3 --> 3.
+[] parseChar Char.4 --> 4.
+[] parseChar Char.5 --> 5.
+[] parseChar Char.6 --> 6.
+[] parseChar Char.7 --> 7.
+[] parseChar Char.8 --> 8.
+[] parseChar Char.9 --> 9.
