@@ -14,7 +14,7 @@ def process_line_init : List.T String.t -> String.T -> List.T String.t.
 
 def stack := List.fold_left String.t (List.t String.t) process_line_init empty_stack (List.drop String.t UnaryNat.1 starting_pos_strings).
 
-def parse_field (n : UnaryNat.T) (s : List.T String.t) := DecimalNonZeroNat.parseUnary (List.get String.t n s).
+def parse_field (n : UnaryNat.T) (s : List.T String.t) := DecimalNat.parseUnary (List.get String.t n s).
 
 def process_line_op_aux2 : List.T String.t -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> List.T String.t.
 [l] process_line_op_aux2 l UnaryNat.0 _ _ --> l.

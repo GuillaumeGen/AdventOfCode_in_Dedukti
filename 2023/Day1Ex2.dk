@@ -1,0 +1,47 @@
+def getFirstLast_aux : String.T -> Maybe.T Char.tt -> Maybe.T Char.tt -> Pair.T Char.tt Char.tt.
+def getFirstLast (s : String.T) : Pair.T Char.tt Char.tt := getFirstLast_aux s (Maybe.None Char.tt) (Maybe.None Char.tt).
+
+[a, b] getFirstLast_aux (List.nil _) (Maybe.Just _ a) (Maybe.Just _ b) --> Pair.pair Char.tt Char.tt a b.
+[a] getFirstLast_aux (List.nil _) (Maybe.Just _ a) (Maybe.None _) --> Pair.pair Char.tt Char.tt a a.
+[x, tl] getFirstLast_aux (List.cons _ x tl) (Maybe.None _) _ --> Bool.if_then_else (Pair.t Char.tt Char.tt) (Char.is_digit x) (getFirstLast_aux tl (Maybe.Just Char.tt x) (Maybe.None Char.tt)) (getFirstLast_aux tl (Maybe.None Char.tt) (Maybe.None Char.tt))
+[x, tl, a, b] getFirstLast_aux (List.cons _ x tl) (Maybe.Just _ a) b --> Bool.if_then_else (Pair.t Char.tt Char.tt) (Char.is_digit x) (getFirstLast_aux tl (Maybe.Just Char.tt a) (Maybe.Just Char.tt x)) (getFirstLast_aux tl (Maybe.Just Char.tt a) b).
+
+def 10xplus (a : UnaryNat.T) (b : UnaryNat.T) := DecimalNat.fromUnary (UnaryNat.add (UnaryNat.mult a UnaryNat.10) b).
+
+def numFromFirstAndLast (s : String.T) : DecimalNat.T := Pair.uncurry UnaryNat.t UnaryNat.t DecimalNat.t 10xplus (Pair.second UnaryNat.t Char.tt UnaryNat.t UnaryNat.parseChar (Pair.first Char.tt UnaryNat.t Char.tt UnaryNat.parseChar (getFirstLast s))).
+
+def modifiedLines :=
+String.replace
+    (String.cons Char.o (String.cons Char.n (String.cons Char.e String.end)))
+    (String.cons Char.o (String.cons Char.1 (String.cons Char.e String.end)))
+    (String.replace
+        (String.cons Char.t (String.cons Char.w (String.cons Char.o String.end)))
+        (String.cons Char.t (String.cons Char.2 (String.cons Char.o String.end)))
+        (String.replace
+            (String.cons Char.t (String.cons Char.h (String.cons Char.r (String.cons Char.e (String.cons Char.e String.end)))))
+            (String.cons Char.t (String.cons Char.3 (String.cons Char.e String.end)))
+            (String.replace
+                (String.cons Char.f (String.cons Char.o (String.cons Char.u (String.cons Char.r String.end))))
+                (String.cons Char.f (String.cons Char.4 (String.cons Char.r String.end)))
+                (String.replace
+                    (String.cons Char.f (String.cons Char.i (String.cons Char.v (String.cons Char.e String.end))))
+                    (String.cons Char.f (String.cons Char.5 (String.cons Char.e String.end)))
+                    (String.replace
+                        (String.cons Char.s (String.cons Char.i (String.cons Char.x String.end)))
+                        (String.cons Char.s (String.cons Char.6 (String.cons Char.x String.end)))
+                        (String.replace
+                            (String.cons Char.s (String.cons Char.e (String.cons Char.v (String.cons Char.e (String.cons Char.n String.end)))))
+                            (String.cons Char.s (String.cons Char.7 (String.cons Char.n String.end)))
+                            (String.replace
+                                (String.cons Char.e (String.cons Char.i (String.cons Char.g (String.cons Char.h (String.cons Char.t String.end)))))
+                                (String.cons Char.e (String.cons Char.8 (String.cons Char.t String.end)))
+                                (String.replace
+                                    (String.cons Char.n (String.cons Char.i (String.cons Char.n (String.cons Char.e String.end))))
+                                    (String.cons Char.n (String.cons Char.9 (String.cons Char.e String.end)))
+                                    Input1.content)))))))).
+
+def nums := List.map String.t DecimalNat.t numFromFirstAndLast (String.lines modifiedLines).
+
+def result := List.fold_left DecimalNat.t DecimalNat.t DecimalNat.add DecimalNat.0 nums.
+
+#EVAL (DecimalNat.print result).

@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import glob
 
 def deduktify(s):
@@ -38,7 +40,7 @@ def deduktify(s):
             print("UNEXPECTED CHARACTER" + c)
     return (res + "String.end" + end + '.')
 
-all_files = glob.glob('*.txt')
+all_files = glob.glob('*/Inputs/*.txt')
 for f in all_files:
     content = open(f, "r")
     dk_filename = f[:-3] + "dk"

@@ -1,0 +1,35 @@
+def T : Type.
+def t : Base.type.
+[] T --> List.T Char.tt.
+[] t --> List.t Char.tt.
+
+def end : T := List.nil Char.tt.
+
+def cons : Char.TT -> T -> T := List.cons Char.tt.
+
+def concat := List.concat Char.tt.
+
+def lines : T -> List.T t := List.split Char.tt Char.Eq Char.new_line.
+
+def Eq := List.Eq Char.tt Char.Eq.
+def eq := Eq.eq String.t Eq.
+
+def drop := List.drop Char.tt.
+
+private string_with_head : Base.type.
+[] string_with_head --> Pair.t Char.tt String.t.
+
+def replace : T -> T -> T -> T.
+private replace_aux : T -> T -> T -> Maybe.T string_with_head -> T -> T.
+[target, replacedBy, str] replace target replacedBy str --> replace_aux target (List.rev Char.tt replacedBy) end (Maybe.None string_with_head) str.
+[x, tl, replacedBy, accLong, y, tlLong] replace_aux (List.cons _ x tl) replacedBy accLong (Maybe.None _) (List.cons _ y tlLong) -->
+Bool.if_then_else t (Char.eq x y)
+    (replace_aux tl replacedBy accLong (Maybe.Just string_with_head (Pair.pair Char.tt t x end)) tlLong)
+    (replace_aux (List.cons Char.tt x tl) replacedBy (cons y accLong) (Maybe.None string_with_head) tlLong).
+[x, tl, replacedBy, accLong, fstAccLocal, accLocal, y, tlLong] replace_aux (List.cons _ x tl) replacedBy accLong (Maybe.Just _ (Pair.pair _ _ fstAccLocal accLocal)) (List.cons _ y tlLong) -->
+Bool.if_then_else t (Char.eq x y)
+    (replace_aux tl replacedBy accLong (Maybe.Just string_with_head (Pair.pair Char.tt t fstAccLocal (cons x accLocal))) tlLong)
+    (replace_aux (cons fstAccLocal (concat (List.rev Char.tt accLocal) (List.cons Char.tt x tl))) replacedBy (cons fstAccLocal accLong) (Maybe.None string_with_head) (concat (List.rev Char.tt accLocal) (cons y tlLong))).
+[replacedBy, accLong, fstAccLocal, accLocal, tlLong] replace_aux (List.nil _) replacedBy accLong (Maybe.Just _ (Pair.pair _ _ fstAccLocal accLocal)) tlLong -->
+replace_aux (cons fstAccLocal (List.rev Char.tt accLocal)) replacedBy (concat replacedBy accLong) (Maybe.None string_with_head) tlLong.
+[accLong] replace_aux (List.cons _ _ _) _ accLong _ (List.nil _) --> List.rev Char.tt accLong.

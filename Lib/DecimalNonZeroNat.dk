@@ -1211,5 +1211,3 @@ def toUnary : T -> UnaryNat.T.
 [x] toUnary (7_ x) --> UnaryNat.add UnaryNat.7 (UnaryNat.mult UnaryNat.10 (toUnary x)).
 [x] toUnary (8_ x) --> UnaryNat.add UnaryNat.8 (UnaryNat.mult UnaryNat.10 (toUnary x)).
 [x] toUnary (9_ x) --> UnaryNat.add UnaryNat.9 (UnaryNat.mult UnaryNat.10 (toUnary x)).
-
-def parseUnary (s : String.T) : UnaryNat.T := toUnary (parse s).

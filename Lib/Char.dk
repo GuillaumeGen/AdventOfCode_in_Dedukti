@@ -5120,5 +5120,75 @@ def eq : TT -> TT -> Bool.T.
 
 def Eq : Eq.T tt := Eq.Cons tt eq.
 
-private digit_list = List.cons tt 0 (List.cons tt 1 (List.cons tt 2 (List.cons tt 3 (List.cons tt 4 (List.cons tt 5 (List.cons tt 6 (List.cons tt 7 (List.cons tt 8 (List.cons tt 9 (List.nil tt))))))))))
-def is_digit (a : TT) : Bool.T := List.contains tt Eq a digit_list.
+def is_digit : TT -> Bool.T.
+[] is_digit a --> Bool.false.
+[] is_digit b --> Bool.false.
+[] is_digit c --> Bool.false.
+[] is_digit d --> Bool.false.
+[] is_digit e --> Bool.false.
+[] is_digit f --> Bool.false.
+[] is_digit g --> Bool.false.
+[] is_digit h --> Bool.false.
+[] is_digit i --> Bool.false.
+[] is_digit j --> Bool.false.
+[] is_digit k --> Bool.false.
+[] is_digit l --> Bool.false.
+[] is_digit m --> Bool.false.
+[] is_digit n --> Bool.false.
+[] is_digit o --> Bool.false.
+[] is_digit p --> Bool.false.
+[] is_digit q --> Bool.false.
+[] is_digit r --> Bool.false.
+[] is_digit s --> Bool.false.
+[] is_digit t --> Bool.false.
+[] is_digit u --> Bool.false.
+[] is_digit v --> Bool.false.
+[] is_digit w --> Bool.false.
+[] is_digit x --> Bool.false.
+[] is_digit y --> Bool.false.
+[] is_digit z --> Bool.false.
+[] is_digit A --> Bool.false.
+[] is_digit B --> Bool.false.
+[] is_digit C --> Bool.false.
+[] is_digit D --> Bool.false.
+[] is_digit E --> Bool.false.
+[] is_digit F --> Bool.false.
+[] is_digit G --> Bool.false.
+[] is_digit H --> Bool.false.
+[] is_digit I --> Bool.false.
+[] is_digit J --> Bool.false.
+[] is_digit K --> Bool.false.
+[] is_digit L --> Bool.false.
+[] is_digit M --> Bool.false.
+[] is_digit N --> Bool.false.
+[] is_digit O --> Bool.false.
+[] is_digit P --> Bool.false.
+[] is_digit Q --> Bool.false.
+[] is_digit R --> Bool.false.
+[] is_digit S --> Bool.false.
+[] is_digit T --> Bool.false.
+[] is_digit U --> Bool.false.
+[] is_digit V --> Bool.false.
+[] is_digit W --> Bool.false.
+[] is_digit X --> Bool.false.
+[] is_digit Y --> Bool.false.
+[] is_digit Z --> Bool.false.
+[] is_digit 0 --> Bool.true.
+[] is_digit 1 --> Bool.true.
+[] is_digit 2 --> Bool.true.
+[] is_digit 3 --> Bool.true.
+[] is_digit 4 --> Bool.true.
+[] is_digit 5 --> Bool.true.
+[] is_digit 6 --> Bool.true.
+[] is_digit 7 --> Bool.true.
+[] is_digit 8 --> Bool.true.
+[] is_digit 9 --> Bool.true.
+[] is_digit space --> Bool.false.
+[] is_digit comma --> Bool.false.
+[] is_digit colon --> Bool.false.
+[] is_digit semicolon --> Bool.false.
+[] is_digit dot --> Bool.false.
+[] is_digit new_line --> Bool.false.
+[] is_digit minus --> Bool.false.
+[] is_digit open_sq --> Bool.false.
+[] is_digit close_sq --> Bool.false.
