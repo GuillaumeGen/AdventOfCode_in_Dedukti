@@ -13,6 +13,7 @@ def compare : T -> T -> Ordering.T.
 
 def Ord : Ord.T t := Ord.Cons t compare.
 def Eq : Eq.T t := Ord.impliesEq t Ord.
+def max := Ord.max t Ord.
 
 def 1 := Pos DecimalNonZeroNat.1.
 def 2 := Pos DecimalNonZeroNat.2.
@@ -76,5 +77,7 @@ def fromUnary : UnaryNat.T -> T.
 def toUnary : T -> UnaryNat.T.
 [] toUnary 0 --> UnaryNat.0.
 [x] toUnary (Pos x) --> DecimalNonZeroNat.toUnary x.
+
+def mult (x : T) (y : T) := fromUnary (UnaryNat.mult (toUnary x) (toUnary y)).
 
 def parseUnary (s : String.T) : UnaryNat.T := toUnary (parse s).

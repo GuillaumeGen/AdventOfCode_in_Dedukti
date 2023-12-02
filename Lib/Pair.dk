@@ -22,6 +22,9 @@ def first : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El a 
 def second : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El b -> Base.El c) -> T a b -> T a c.
 [a, c, f, x, y] second a _ c f (pair _ _ x y) --> pair a c x (f y).
 
+def onBoth : (a1 : Base.type) -> (b1 : Base.type) -> (a2 : Base.type) -> (b2 : Base.type) -> (Base.El a1 -> Base.El a2) -> (Base.El b1 -> Base.El b2) -> T a1 b1 -> T a2 b2.
+[a2, b2, f, g, x, y] onBoth _ _ a2 b2 f g (pair _ _ x y) --> pair a2 b2 (f x) (g y).
+
 def uncurry : (a : Base.type) -> (b : Base.type) -> (c : Base.type) -> (Base.El a -> Base.El b -> Base.El c) -> T a b -> Base.El c.
 [f, x, y] uncurry _ _ _ f (pair _ _ x y) --> f x y.
 

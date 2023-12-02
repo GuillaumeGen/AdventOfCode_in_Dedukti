@@ -5,3 +5,10 @@ def compare : (a : Base.type) -> T a -> Base.El a -> Base.El a -> Ordering.T.
 
 def impliesEq : (a : Base.type) -> T a -> Eq.T a.
 [a, comp] impliesEq a (Cons _ comp) --> Eq.Cons a (x => y => Ordering.eq (comp x y) Ordering.EQ).
+
+def max : (a : Base.type) -> T a -> Base.El a -> Base.El a -> Base.El a.
+private max_aux : (a : Base.type) -> Ordering.T -> Base.El a -> Base.El a -> Base.El a.
+[a, f, x, y] max a (Cons _ f) x y --> max_aux a (f x y) x y.
+[y] max_aux _ Ordering.LT _ y --> y.
+[x] max_aux _ Ordering.EQ x _ --> x.
+[x] max_aux _ Ordering.GT x _ --> x.

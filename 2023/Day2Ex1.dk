@@ -1,0 +1,36 @@
+Color : Type.
+color : Base.type.
+[] Base.El color --> Color.
+
+Red : Color.
+Green : Color.
+Blue : Color.
+
+def LineDescription := Pair.t DecimalNat.t (List.t (List.t (Pair.t DecimalNat.t color))).
+
+def 13 := DecimalNat.Pos (DecimalNonZeroNat.3_ DecimalNonZeroNat.1).
+def 14 := DecimalNat.Pos (DecimalNonZeroNat.4_ DecimalNonZeroNat.1).
+def 15 := DecimalNat.Pos (DecimalNonZeroNat.5_ DecimalNonZeroNat.1).
+
+def checkColor : DecimalNat.T -> Color -> Bool.T.
+[n] checkColor n Red --> Ordering.eq (DecimalNat.compare n 13) Ordering.LT.
+[n] checkColor n Green --> Ordering.eq (DecimalNat.compare n 14) Ordering.LT.
+[n] checkColor n Blue --> Ordering.eq (DecimalNat.compare n 15) Ordering.LT.
+
+def parseColor : String.T -> Color.
+[] parseColor (List.cons _ Char.r (List.cons _ Char.e (List.cons _ Char.d (List.nil _)))) --> Red.
+[] parseColor (List.cons _ Char.g (List.cons _ Char.r (List.cons _ Char.e (List.cons _ Char.e (List.cons _ Char.n (List.nil _)))))) --> Green.
+[] parseColor (List.cons _ Char.b (List.cons _ Char.l (List.cons _ Char.u (List.cons _ Char.e (List.nil _))))) --> Blue.
+
+def getNum (s : String.T) : DecimalNat.T := DecimalNat.parse (String.drop UnaryNat.5 s).
+def parseElem (s : String.T) := Pair.onBoth String.t String.t DecimalNat.t color DecimalNat.parse parseColor (String.breakOnFirst Char.space (String.drop UnaryNat.1 s)).
+def parseParty (s : String.T) := List.map String.t (Pair.t DecimalNat.t color) parseElem (String.split Char.comma s).
+def parseParties (s : String.T) := List.map String.t (List.t (Pair.t DecimalNat.t color)) parseParty (String.split Char.semicolon s).
+
+def parseGame (x : String.T) : Base.El LineDescription := Pair.onBoth String.t String.t DecimalNat.t (List.t (List.t (Pair.t DecimalNat.t color))) getNum parseParties (String.breakOnFirst Char.colon x).
+
+def gameList := List.map String.t LineDescription parseGame (String.lines Input2.content).
+def validGames : List.T LineDescription := List.filter LineDescription (x => List.forAll (List.t (Pair.t DecimalNat.t color)) (List.forAll (Pair.t DecimalNat.t color) (Pair.uncurry DecimalNat.t color Bool.t checkColor)) (Pair.snd DecimalNat.t (List.t (List.t (Pair.t DecimalNat.t color))) x)) gameList.
+def result := List.fold_left LineDescription DecimalNat.t (n => x => DecimalNat.add n (Pair.fst DecimalNat.t (List.t (List.t (Pair.t DecimalNat.t color))) x)) DecimalNat.0 validGames.
+
+#EVAL (DecimalNat.print result).

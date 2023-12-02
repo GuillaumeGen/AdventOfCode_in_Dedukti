@@ -1,0 +1,17 @@
+def BaseElem := Pair.t DecimalNat.t Day2Ex1.color.
+
+def mergeMax : (List.T BaseElem) -> (List.T BaseElem) -> (List.T BaseElem).
+[acc] mergeMax acc (List.nil _) --> acc.
+[r, newR, tlAcc, tl] mergeMax (List.cons _ (Pair.pair _ _ r Day2Ex1.Red) tlAcc) (List.cons _ (Pair.pair _ _ newR Day2Ex1.Red) tl) --> mergeMax (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color (DecimalNat.max r newR) Day2Ex1.Red) tlAcc) tl.
+[r, g, newG, tlAcc, tl] mergeMax (List.cons _ r (List.cons _ (Pair.pair _ _ g Day2Ex1.Green) tlAcc)) (List.cons _ (Pair.pair _ _ newG Day2Ex1.Green) tl) --> mergeMax (List.cons BaseElem r (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color (DecimalNat.max g newG) Day2Ex1.Green) tlAcc)) tl.
+[r, g, b, newB, tlAcc, tl] mergeMax (List.cons _ r (List.cons _ g (List.cons _ (Pair.pair _ _ b Day2Ex1.Blue) tlAcc))) (List.cons _ (Pair.pair _ _ newB Day2Ex1.Blue) tl) --> mergeMax (List.cons BaseElem r (List.cons BaseElem g (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color (DecimalNat.max b newB) Day2Ex1.Blue) tlAcc))) tl.
+
+def computeAggregate := List.fold_left (List.t BaseElem) (List.t BaseElem) mergeMax (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color DecimalNat.0 Day2Ex1.Red) (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color DecimalNat.0 Day2Ex1.Green) (List.cons BaseElem (Pair.pair DecimalNat.t Day2Ex1.color DecimalNat.0 Day2Ex1.Blue) (List.nil BaseElem)))).
+
+def powerFromAggregate := List.fold_left BaseElem DecimalNat.t (acc => n => DecimalNat.mult acc (Pair.fst DecimalNat.t Day2Ex1.color n)) DecimalNat.1.
+
+def computePower (l : Base.El Day2Ex1.LineDescription) := powerFromAggregate (computeAggregate (Pair.snd DecimalNat.t (List.t (List.t BaseElem)) l)).
+
+def result := List.fold_left DecimalNat.t DecimalNat.t DecimalNat.add DecimalNat.0 (List.map Day2Ex1.LineDescription DecimalNat.t computePower Day2Ex1.gameList).
+
+#EVAL (DecimalNat.print result).

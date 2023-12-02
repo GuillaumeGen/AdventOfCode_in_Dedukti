@@ -6,6 +6,7 @@ DKOS_LIB=$(shell cut -d ':' -f 1 .depend_Lib)
 DKOS_2022=$(shell cut -d ':' -f 1 .depend_2022)
 DKOS_2023=$(shell cut -d ':' -f 1 .depend_2023)
 
+lib: $(DKOS_LIB)
 all: $(DKOS_LIB) $(DKOS_2022) $(DKOS_2023)
 
 BASE_LIB = -I Lib

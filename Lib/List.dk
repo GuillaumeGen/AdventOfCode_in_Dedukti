@@ -113,6 +113,15 @@ def breakAt : (a : Base.type) -> UnaryNat.T -> T a -> Pair.T (t a) (t a).
 [a, l] breakAt a UnaryNat.0 l --> Pair.pair (t a) (t a) (nil a) l.
 [a, n, hd, tl] breakAt a (UnaryNat.S n) (cons _ hd tl) --> Pair.first (t a) (t a) (t a) (cons a hd) (breakAt a n tl).
 
+def breakOnFirst : (a : Base.type) -> Eq.T a -> Base.El a -> T a -> Pair.T (t a) (t a).
+[a, eqA, x, hd, tl] breakOnFirst a eqA x (cons _ hd tl) -->
+Bool.if_then_else (Pair.t (t a) (t a)) (Eq.eq a eqA x hd)
+    (Pair.pair (t a) (t a) (nil a) tl)
+    (Pair.first (t a) (t a) (t a) (cons a hd) (breakOnFirst a eqA x tl)).
+
 def allUniques : (a : Base.type) -> Eq.T a -> T a -> Bool.T.
 [] allUniques _ _ (nil _) --> Bool.true.
 [a, eqA, hd, tl] allUniques a eqA (cons _ hd tl) --> Bool.if_then_else Bool.t (contains a eqA hd tl) Bool.false (allUniques a eqA tl).
+
+def forAll : (a : Base.type) -> (Base.El a -> Bool.T) -> T a -> Bool.T.
+[a, f, l] forAll a f l --> fold_left a Bool.t (b => hd => Bool.and b (f hd)) Bool.true l.
