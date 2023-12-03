@@ -73,6 +73,15 @@ new_line : TT.
 minus : TT.
 open_sq : TT.
 close_sq : TT.
+asterisk : TT.
+slash : TT.
+percent : TT.
+dollar : TT.
+hash : TT.
+at : TT.
+and : TT.
+plus : TT.
+equal : TT.
 
 def eq : TT -> TT -> Bool.T.
 [] eq a a --> Bool.true.
@@ -4832,6 +4841,15 @@ def eq : TT -> TT -> Bool.T.
 [] eq dot minus --> Bool.false.
 [] eq dot open_sq --> Bool.false.
 [] eq dot close_sq --> Bool.false.
+[] eq dot asterisk --> Bool.false.
+[] eq dot slash --> Bool.false.
+[] eq dot percent --> Bool.false.
+[] eq dot dollar --> Bool.false.
+[] eq dot hash --> Bool.false.
+[] eq dot at --> Bool.false.
+[] eq dot and --> Bool.false.
+[] eq dot plus --> Bool.false.
+[] eq dot equal --> Bool.false.
 [] eq new_line a --> Bool.false.
 [] eq new_line b --> Bool.false.
 [] eq new_line c --> Bool.false.
@@ -4903,6 +4921,15 @@ def eq : TT -> TT -> Bool.T.
 [] eq new_line minus --> Bool.false.
 [] eq new_line open_sq --> Bool.false.
 [] eq new_line close_sq --> Bool.false.
+[] eq new_line asterisk --> Bool.false.
+[] eq new_line slash --> Bool.false.
+[] eq new_line percent --> Bool.false.
+[] eq new_line dollar --> Bool.false.
+[] eq new_line hash --> Bool.false.
+[] eq new_line at --> Bool.false.
+[] eq new_line and --> Bool.false.
+[] eq new_line plus --> Bool.false.
+[] eq new_line equal --> Bool.false.
 [] eq minus a --> Bool.false.
 [] eq minus b --> Bool.false.
 [] eq minus c --> Bool.false.
@@ -5116,6 +5143,86 @@ def eq : TT -> TT -> Bool.T.
 [] eq close_sq minus --> Bool.false.
 [] eq close_sq open_sq --> Bool.false.
 [] eq close_sq close_sq --> Bool.true.
+[] eq asterisk a --> Bool.false.
+[] eq asterisk b --> Bool.false.
+[] eq asterisk c --> Bool.false.
+[] eq asterisk d --> Bool.false.
+[] eq asterisk e --> Bool.false.
+[] eq asterisk f --> Bool.false.
+[] eq asterisk g --> Bool.false.
+[] eq asterisk h --> Bool.false.
+[] eq asterisk i --> Bool.false.
+[] eq asterisk j --> Bool.false.
+[] eq asterisk k --> Bool.false.
+[] eq asterisk l --> Bool.false.
+[] eq asterisk m --> Bool.false.
+[] eq asterisk n --> Bool.false.
+[] eq asterisk o --> Bool.false.
+[] eq asterisk p --> Bool.false.
+[] eq asterisk q --> Bool.false.
+[] eq asterisk r --> Bool.false.
+[] eq asterisk s --> Bool.false.
+[] eq asterisk t --> Bool.false.
+[] eq asterisk u --> Bool.false.
+[] eq asterisk v --> Bool.false.
+[] eq asterisk w --> Bool.false.
+[] eq asterisk x --> Bool.false.
+[] eq asterisk y --> Bool.false.
+[] eq asterisk z --> Bool.false.
+[] eq asterisk A --> Bool.false.
+[] eq asterisk B --> Bool.false.
+[] eq asterisk C --> Bool.false.
+[] eq asterisk D --> Bool.false.
+[] eq asterisk E --> Bool.false.
+[] eq asterisk F --> Bool.false.
+[] eq asterisk G --> Bool.false.
+[] eq asterisk H --> Bool.false.
+[] eq asterisk I --> Bool.false.
+[] eq asterisk J --> Bool.false.
+[] eq asterisk K --> Bool.false.
+[] eq asterisk L --> Bool.false.
+[] eq asterisk M --> Bool.false.
+[] eq asterisk N --> Bool.false.
+[] eq asterisk O --> Bool.false.
+[] eq asterisk P --> Bool.false.
+[] eq asterisk Q --> Bool.false.
+[] eq asterisk R --> Bool.false.
+[] eq asterisk S --> Bool.false.
+[] eq asterisk T --> Bool.false.
+[] eq asterisk U --> Bool.false.
+[] eq asterisk V --> Bool.false.
+[] eq asterisk W --> Bool.false.
+[] eq asterisk X --> Bool.false.
+[] eq asterisk Y --> Bool.false.
+[] eq asterisk Z --> Bool.false.
+[] eq asterisk 0 --> Bool.false.
+[] eq asterisk 1 --> Bool.false.
+[] eq asterisk 2 --> Bool.false.
+[] eq asterisk 3 --> Bool.false.
+[] eq asterisk 4 --> Bool.false.
+[] eq asterisk 5 --> Bool.false.
+[] eq asterisk 6 --> Bool.false.
+[] eq asterisk 7 --> Bool.false.
+[] eq asterisk 8 --> Bool.false.
+[] eq asterisk 9 --> Bool.false.
+[] eq asterisk space --> Bool.false.
+[] eq asterisk comma --> Bool.false.
+[] eq asterisk colon --> Bool.false.
+[] eq asterisk semicolon --> Bool.false.
+[] eq asterisk dot --> Bool.false.
+[] eq asterisk new_line --> Bool.false.
+[] eq asterisk minus --> Bool.false.
+[] eq asterisk open_sq --> Bool.false.
+[] eq asterisk close_sq --> Bool.false.
+[] eq asterisk asterisk --> Bool.true.
+[] eq asterisk slash --> Bool.false.
+[] eq asterisk percent --> Bool.false.
+[] eq asterisk dollar --> Bool.false.
+[] eq asterisk hash --> Bool.false.
+[] eq asterisk at --> Bool.false.
+[] eq asterisk and --> Bool.false.
+[] eq asterisk plus --> Bool.false.
+[] eq asterisk equal --> Bool.false.
 
 
 def Eq : Eq.T tt := Eq.Cons tt eq.
@@ -5192,3 +5299,12 @@ def is_digit : TT -> Bool.T.
 [] is_digit minus --> Bool.false.
 [] is_digit open_sq --> Bool.false.
 [] is_digit close_sq --> Bool.false.
+[] is_digit asterisk --> Bool.false.
+[] is_digit slash --> Bool.false.
+[] is_digit percent --> Bool.false.
+[] is_digit dollar --> Bool.false.
+[] is_digit hash --> Bool.false.
+[] is_digit at --> Bool.false.
+[] is_digit and --> Bool.false.
+[] is_digit plus --> Bool.false.
+[] is_digit equal --> Bool.false.

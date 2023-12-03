@@ -1211,3 +1211,24 @@ def toUnary : T -> UnaryNat.T.
 [x] toUnary (7_ x) --> UnaryNat.add UnaryNat.7 (UnaryNat.mult UnaryNat.10 (toUnary x)).
 [x] toUnary (8_ x) --> UnaryNat.add UnaryNat.8 (UnaryNat.mult UnaryNat.10 (toUnary x)).
 [x] toUnary (9_ x) --> UnaryNat.add UnaryNat.9 (UnaryNat.mult UnaryNat.10 (toUnary x)).
+
+def mult : T -> T -> T.
+[y] mult 1 y --> y.
+[y] mult 2 y --> add y y.
+[y] mult 3 y --> add (mult 2 y) y.
+[y] mult 4 y --> add (mult 3 y) y.
+[y] mult 5 y --> add (mult 4 y) y.
+[y] mult 6 y --> add (mult 5 y) y.
+[y] mult 7 y --> add (mult 6 y) y.
+[y] mult 8 y --> add (mult 7 y) y.
+[y] mult 9 y --> add (mult 8 y) y.
+[x, y] mult (0_ x) y --> 0_ (mult x y).
+[x, y] mult (1_ x) y --> add y (0_ (mult x y)).
+[x, y] mult (2_ x) y --> add (mult 2 y) (0_ (mult x y)).
+[x, y] mult (3_ x) y --> add (mult 3 y) (0_ (mult x y)).
+[x, y] mult (4_ x) y --> add (mult 4 y) (0_ (mult x y)).
+[x, y] mult (5_ x) y --> add (mult 5 y) (0_ (mult x y)).
+[x, y] mult (6_ x) y --> add (mult 6 y) (0_ (mult x y)).
+[x, y] mult (7_ x) y --> add (mult 7 y) (0_ (mult x y)).
+[x, y] mult (8_ x) y --> add (mult 8 y) (0_ (mult x y)).
+[x, y] mult (9_ x) y --> add (mult 9 y) (0_ (mult x y)).

@@ -19,6 +19,7 @@ def drop := List.drop Char.tt.
 def split := List.split Char.tt Char.Eq.
 def breakAt := List.breakAt Char.tt.
 def breakOnFirst := List.breakOnFirst Char.tt Char.Eq.
+def rev := List.rev Char.tt.
 
 private string_with_head : Base.type.
 [] string_with_head --> Pair.t Char.tt String.t.

@@ -36,6 +36,8 @@ def compare : T -> T -> Ordering.T.
 [x, y] compare (S x) (S y) --> compare x y.
 
 def Ord : Ord.T t := Ord.Cons t compare.
+def gt : T -> T -> Bool.T := Ord.gt t Ord.
+def max : T -> T -> T := Ord.max t Ord.
 
 def Eq : Eq.T t := Ord.impliesEq t Ord.
 def eq : T -> T -> Bool.T := Eq.eq t Eq.

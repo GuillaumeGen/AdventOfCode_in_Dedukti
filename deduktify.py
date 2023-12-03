@@ -36,6 +36,33 @@ def deduktify(s):
         elif c == "]":
             res += "String.cons Char.close_sq ("
             end += ")"
+        elif c == "*":
+            res += "String.cons Char.asterisk ("
+            end += ")"
+        elif c == "/":
+            res += "String.cons Char.slash ("
+            end += ")"
+        elif c == "%":
+            res += "String.cons Char.percent ("
+            end += ")"
+        elif c == "$":
+            res += "String.cons Char.dollar ("
+            end += ")"
+        elif c == "#":
+            res += "String.cons Char.hash ("
+            end += ")"
+        elif c == "@":
+            res += "String.cons Char.at ("
+            end += ")"
+        elif c == "&":
+            res += "String.cons Char.and ("
+            end += ")"
+        elif c == "+":
+            res += "String.cons Char.plus ("
+            end += ")"
+        elif c == "=":
+            res += "String.cons Char.equal ("
+            end += ")"
         else:
             print("UNEXPECTED CHARACTER" + c)
     return (res + "String.end" + end + '.')

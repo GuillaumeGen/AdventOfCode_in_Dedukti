@@ -12,3 +12,5 @@ private max_aux : (a : Base.type) -> Ordering.T -> Base.El a -> Base.El a -> Bas
 [y] max_aux _ Ordering.LT _ y --> y.
 [x] max_aux _ Ordering.EQ x _ --> x.
 [x] max_aux _ Ordering.GT x _ --> x.
+
+def gt (a : Base.type) (O : T a) (x : Base.El a) (y : Base.El a) : Bool.T := Ordering.eq (compare a O x y) Ordering.GT.
