@@ -1,0 +1,34 @@
+def 0 := UnaryNat.0.
+def S := UnaryNat.S.
+
+def PairNat := Pair.t UnaryNat.t UnaryNat.t.
+def pairNat := Pair.pair UnaryNat.t UnaryNat.t.
+def fstNat := Pair.fst UnaryNat.t UnaryNat.t.
+def sndNat := Pair.snd UnaryNat.t UnaryNat.t.
+
+def emptyGrid := List.map String.t (List.t (Pair.t Char.tt Bool.t)) (List.map Char.tt (Pair.t Char.tt Bool.t) (x => Pair.pair Char.tt Bool.t x Bool.false)) (String.lines Input3.content).
+
+def compute_around : UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> UnaryNat.T -> List.T (Pair.t UnaryNat.t UnaryNat.t).
+[] compute_around _ _ 0 0 --> List.cons PairNat (pairNat 0 (S 0)) (List.cons PairNat (pairNat (S 0) 0) (List.cons PairNat (pairNat (S 0) (S 0)) (List.nil PairNat))).
+[y, maxY] compute_around _ maxY 0 (UnaryNat.S y) --> List.cons PairNat (pairNat 0 y) (List.cons PairNat (pairNat (S 0) y) (List.cons PairNat (pairNat (S 0) (S y)) (Bool.if_then_else (List.t PairNat) (UnaryNat.eq (S (S y)) maxY) (List.nil PairNat) (List.cons PairNat (pairNat (S 0) (S (S y))) (List.cons PairNat (pairNat 0 (S (S y))) (List.nil PairNat)))))).
+[x, maxX] compute_around maxX _ (UnaryNat.S x) 0 --> List.cons PairNat (pairNat x 0) (List.cons PairNat (pairNat x (S 0)) (List.cons PairNat (pairNat (S x) (S 0)) (Bool.if_then_else (List.t PairNat) (UnaryNat.eq (S (S x)) maxX) (List.nil PairNat) (List.cons PairNat (pairNat (S (S x)) (S 0)) (List.cons PairNat (pairNat (S (S x)) 0) (List.nil PairNat)))))).
+[x, y, maxX, maxY] compute_around maxX maxY (UnaryNat.S x) (UnaryNat.S y) -->  List.cons PairNat (pairNat x y) (List.cons PairNat (pairNat x (S y)) (List.cons PairNat (pairNat (S x) y) (Bool.if_then_else (List.t PairNat) (UnaryNat.eq (S (S x)) maxX) (Bool.if_then_else (List.t PairNat) (UnaryNat.eq (S (S y)) maxY) (List.nil PairNat) (List.cons PairNat (pairNat (S x) (S (S y))) (List.cons PairNat (pairNat x (S (S y))) (List.nil PairNat)))) (List.cons PairNat (pairNat (S (S x)) (S y)) (List.cons PairNat (pairNat (S (S x)) y) (Bool.if_then_else (List.t PairNat) (UnaryNat.eq (S (S y)) maxY) (List.nil PairNat) (List.cons PairNat (pairNat (S x) (S (S y))) (List.cons PairNat (pairNat x (S (S y))) (List.cons PairNat (pairNat (S (S x)) (S (S y))) (List.nil PairNat)))))))))).
+
+def real_comupte_around := compute_around (List.length (Pair.t Char.tt Bool.t) (List.get (List.t (Pair.t Char.tt Bool.t)) 0 emptyGrid)) (List.length (List.t (Pair.t Char.tt Bool.t)) emptyGrid).
+
+def tag_function : UnaryNat.T -> UnaryNat.T -> List.T (Pair.t Char.tt Bool.t) -> List.T (List.t (Pair.t Char.tt Bool.t)) -> List.T (List.t (Pair.t Char.tt Bool.t)) -> List.T (List.t (Pair.t Char.tt Bool.t)).
+[grid] tag_function _ _ (List.nil _) (List.nil _) grid --> grid.
+[y, hd, tl, grid] tag_function _ y (List.nil _) (List.cons _ hd tl) grid --> tag_function 0 (S y) hd tl grid.
+[x, y, hd, tl, nextLines, grid] tag_function x y (List.cons _ hd tl) nextLines grid --> tag_function (S x) y tl nextLines (Bool.if_then_else (List.t (List.t (Pair.t Char.tt Bool.t))) (Bool.or (Char.eq Char.dot (Pair.fst Char.tt Bool.t hd)) (Char.is_digit (Pair.fst Char.tt Bool.t hd))) grid (List.fold_left PairNat (List.t (List.t (Pair.t Char.tt Bool.t))) (acc => pp => List.on (List.t (Pair.t Char.tt Bool.t)) (sndNat pp) (List.on (Pair.t Char.tt Bool.t) (fstNat pp) (Pair.second Char.tt Bool.t Bool.t (_ => Bool.true))) acc) grid (real_comupte_around x y))).
+
+def grab_numbers : List.T (List.t (Pair.t Char.tt Bool.t)) -> String.T -> Bool.T -> DecimalNat.T -> DecimalNat.T.
+[acc] grab_numbers (List.nil _) (List.nil _) _ acc --> acc.
+[hd, tl, isRelevant, acc] grab_numbers (List.nil _) (List.cons _ hd tl) isRelevant acc --> Bool.if_then_else DecimalNat.t isRelevant (DecimalNat.add (DecimalNat.parse (String.rev (String.cons hd tl))) acc) acc.
+[nextLines, acc] grab_numbers (List.cons _ (List.nil _) nextLines) (List.nil _) _ acc --> grab_numbers nextLines String.end Bool.false acc.
+[nextLines, hd, tl, isRelevant, acc] grab_numbers (List.cons _ (List.nil _) nextLines) (List.cons _ hd tl) isRelevant acc --> grab_numbers nextLines String.end Bool.false (Bool.if_then_else DecimalNat.t isRelevant (DecimalNat.add (DecimalNat.parse (String.rev (String.cons hd tl))) acc) acc).
+[currChar, tlLine, nextLines, acc] grab_numbers (List.cons _ (List.cons _ currChar tlLine) nextLines) (List.nil _) _ acc --> Bool.if_then_else DecimalNat.t (Char.is_digit (Pair.fst Char.tt Bool.t currChar)) (grab_numbers (List.cons (List.t (Pair.t Char.tt Bool.t)) tlLine nextLines) (String.cons (Pair.fst Char.tt Bool.t currChar) String.end) (Pair.snd Char.tt Bool.t currChar) acc) (grab_numbers (List.cons (List.t (Pair.t Char.tt Bool.t)) tlLine nextLines) String.end Bool.false acc).
+[currChar, tlLine, nextLines, hd, tl, isRelevant, acc] grab_numbers (List.cons _ (List.cons _ currChar tlLine) nextLines) (List.cons _ hd tl) isRelevant acc --> Bool.if_then_else DecimalNat.t (Char.is_digit (Pair.fst Char.tt Bool.t currChar)) (grab_numbers (List.cons (List.t (Pair.t Char.tt Bool.t)) tlLine nextLines) (String.cons (Pair.fst Char.tt Bool.t currChar) (String.cons hd tl)) (Bool.or isRelevant (Pair.snd Char.tt Bool.t currChar)) acc) (grab_numbers (List.cons (List.t (Pair.t Char.tt Bool.t)) tlLine nextLines) String.end Bool.false (Bool.if_then_else DecimalNat.t isRelevant (DecimalNat.add (DecimalNat.parse (String.rev (String.cons hd tl))) acc) acc)).
+
+def result := grab_numbers (tag_function 0 0 (List.get (List.t (Pair.t Char.tt Bool.t)) 0 emptyGrid) (List.drop (List.t (Pair.t Char.tt Bool.t)) (S 0) emptyGrid) emptyGrid) String.end Bool.false DecimalNat.0.
+
+#EVAL (DecimalNat.print result).

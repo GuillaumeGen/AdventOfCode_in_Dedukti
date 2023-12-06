@@ -1,3 +1,4 @@
 *.dko
 .depend*
 */Inputs/*.dk
+Char.dk

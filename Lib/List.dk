@@ -67,6 +67,17 @@ private insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Ba
 def sort : (a : Base.type) -> Ord.T a -> T a -> T a.
 [a, ordA, l] sort a ordA l --> fold_right a (t a) (insert a ordA) l (nil a).
 
+def insertUniq : (a : Base.type) -> Ord.T a -> Base.El a -> T a -> T a.
+private insertUniq_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
+[a, x] insertUniq a _ x (nil _) --> cons a x (nil a).
+[a, ordA, x, hd, tl] insertUniq a ordA x (cons _ hd tl) --> insertUniq_aux a ordA (Ord.compare a ordA x hd) x hd tl.
+[a, ordA, x, hd, tl] insertUniq_aux a ordA Ordering.LT x hd tl --> cons a hd (insert a ordA x tl).
+[a, ordA, x, hd, tl] insertUniq_aux a ordA Ordering.EQ x hd tl --> cons a hd tl.
+[a, ordA, x, hd, tl] insertUniq_aux a ordA Ordering.GT x hd tl --> cons a x (cons a hd tl).
+
+def sortUniq : (a : Base.type) -> Ord.T a -> T a -> T a.
+[a, ordA, l] sortUniq a ordA l --> fold_right a (t a) (insertUniq a ordA) l (nil a).
+
 private max_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> Base.El a.
 [x] max_aux _ _ Ordering.EQ x _ (nil _) --> x.
 [y] max_aux _ _ Ordering.LT _ y (nil _) --> y.

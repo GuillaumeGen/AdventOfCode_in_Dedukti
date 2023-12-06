@@ -2,70 +2,72 @@
 
 import glob
 
+char_dico = {}
+for i in range(48, 58):
+    char_dico[chr(i)] = chr(i)
+for i in range(65, 91):
+    char_dico[chr(i)] = chr(i)
+for i in range(97, 123):
+    char_dico[chr(i)] = chr(i)
+char_dico[" "] = "space"
+char_dico[","] = "comma"
+char_dico[";"] = "semicolon"
+char_dico[":"] = "colon"
+char_dico["\n"] = "new_line"
+char_dico["."] = "dot"
+char_dico["-"] = "minus"
+char_dico["["] = "open_sq"
+char_dico["]"] = "close_sq"
+char_dico["*"] = "asterisk"
+char_dico["/"] = "slash"
+char_dico["%"] = "percent"
+char_dico["$"] = "dollar"
+char_dico["#"] = "hash"
+char_dico["@"] = "at"
+char_dico["&"] = "and"
+char_dico["+"] = "plus"
+char_dico["="] = "equal"
+char_dico["|"] = "pipe"
+
 def deduktify(s):
     res = "def content := "
-    end = ""
     for c in s:
-        if (ord(c) >= 48 and ord(c) <= 57) or (ord(c) >= 65 and ord(c) <= 90) or (ord(c) >= 97 and ord(c) <= 122):
-            res += "String.cons Char." + c + " ("
-            end += ")"
-        elif c == " ":
-            res += "String.cons Char.space ("
-            end += ")"
-        elif c == ",":
-            res += "String.cons Char.comma ("
-            end += ")"
-        elif c == ";":
-            res += "String.cons Char.semicolon ("
-            end += ")"
-        elif c == ":":
-            res += "String.cons Char.colon ("
-            end += ")"
-        elif c == "\n":
-            res += "String.cons Char.new_line ("
-            end += ")"
-        elif c == ".":
-            res += "String.cons Char.dot ("
-            end += ")"
-        elif c == "-":
-            res += "String.cons Char.minus ("
-            end += ")"
-        elif c == "[":
-            res += "String.cons Char.open_sq ("
-            end += ")"
-        elif c == "]":
-            res += "String.cons Char.close_sq ("
-            end += ")"
-        elif c == "*":
-            res += "String.cons Char.asterisk ("
-            end += ")"
-        elif c == "/":
-            res += "String.cons Char.slash ("
-            end += ")"
-        elif c == "%":
-            res += "String.cons Char.percent ("
-            end += ")"
-        elif c == "$":
-            res += "String.cons Char.dollar ("
-            end += ")"
-        elif c == "#":
-            res += "String.cons Char.hash ("
-            end += ")"
-        elif c == "@":
-            res += "String.cons Char.at ("
-            end += ")"
-        elif c == "&":
-            res += "String.cons Char.and ("
-            end += ")"
-        elif c == "+":
-            res += "String.cons Char.plus ("
-            end += ")"
-        elif c == "=":
-            res += "String.cons Char.equal ("
-            end += ")"
+        if c in char_dico:
+            res += "String.cons Char." + char_dico[c] + " ("
         else:
             print("UNEXPECTED CHARACTER" + c)
-    return (res + "String.end" + end + '.')
+    return (res + "String.end" + (")" * len(s)) + '.')
+
+char_dk = open("Lib/Char.dk", 'w')
+char_dk.write("""tt : Base.type.
+TT : Type.
+[] Base.El tt --> TT.
+
+""")
+for x in char_dico.values():
+    char_dk.write(x + " : TT.\n")
+char_dk.write("""
+
+def eq : TT -> TT -> Bool.T.
+""")
+for x in char_dico.values():
+    for y in char_dico.values():
+        char_dk.write("[] eq " + x + " " + y + " --> Bool.")
+        if x == y:
+            char_dk.write("true.\n")
+        else:
+            char_dk.write("false.\n")
+char_dk.write("""
+def Eq : Eq.T tt := Eq.Cons tt eq.
+
+def is_digit : TT -> Bool.T.
+""")
+for (k, x) in char_dico.items():
+    char_dk.write("[] is_digit " + x + " --> Bool.")
+    if ord(k) in range(48, 58):
+        char_dk.write("true.\n")
+    else:
+        char_dk.write("false.\n")
 
 all_files = glob.glob('*/Inputs/*.txt')
 for f in all_files:
