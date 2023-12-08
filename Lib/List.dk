@@ -5,13 +5,13 @@ T : Base.type -> Type.
 nil : (a : Base.type) -> T a.
 cons : (a : Base.type) -> Base.El a -> T a -> T a.
 
-private is_eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
-[] is_eq _ _ (nil _) (nil _) --> Bool.true.
-[] is_eq _ _ (nil _) (cons _ _ _) --> Bool.false.
-[] is_eq _ _ (cons _ _ _) (nil _) --> Bool.false.
-[a, eqA, x, t, y, u] is_eq a eqA (cons _ x t) (cons _ y u) --> Bool.and (Eq.eq a eqA x y) (is_eq a eqA t u).
+def eq : (a : Base.type) -> Eq.T a -> T a -> T a -> Bool.T.
+[] eq _ _ (nil _) (nil _) --> Bool.true.
+[] eq _ _ (nil _) (cons _ _ _) --> Bool.false.
+[] eq _ _ (cons _ _ _) (nil _) --> Bool.false.
+[a, eqA, x, t, y, u] eq a eqA (cons _ x t) (cons _ y u) --> Bool.and (Eq.eq a eqA x y) (eq a eqA t u).
 
-def Eq (a : Base.type) (eqA : Eq.T a) : Eq.T (t a) := Eq.Cons (t a) (is_eq a eqA).
+def Eq (a : Base.type) (eqA : Eq.T a) : Eq.T (t a) := Eq.Cons (t a) (eq a eqA).
 
 private rev_aux : (a : Base.type) -> T a -> T a -> T a.
 [acc] rev_aux _ acc (nil _) --> acc.
@@ -60,9 +60,9 @@ def insert : (a : Base.type) -> Ord.T a -> Base.El a -> T a -> T a.
 private insert_aux : (a : Base.type) -> Ord.T a -> Ordering.T -> Base.El a -> Base.El a -> T a -> T a.
 [a, x] insert a _ x (nil _) --> cons a x (nil a).
 [a, ordA, x, hd, tl] insert a ordA x (cons _ hd tl) --> insert_aux a ordA (Ord.compare a ordA x hd) x hd tl.
-[a, ordA, x, hd, tl] insert_aux a ordA Ordering.LT x hd tl --> cons a hd (insert a ordA x tl).
+[a, ordA, x, hd, tl] insert_aux a ordA Ordering.LT x hd tl --> cons a x (cons a hd tl).
 [a, ordA, x, hd, tl] insert_aux a ordA Ordering.EQ x hd tl --> cons a hd (cons a x tl).
-[a, ordA, x, hd, tl] insert_aux a ordA Ordering.GT x hd tl --> cons a x (cons a hd tl).
+[a, ordA, x, hd, tl] insert_aux a ordA Ordering.GT x hd tl --> cons a hd (insert a ordA x tl).
 
 def sort : (a : Base.type) -> Ord.T a -> T a -> T a.
 [a, ordA, l] sort a ordA l --> fold_right a (t a) (insert a ordA) l (nil a).

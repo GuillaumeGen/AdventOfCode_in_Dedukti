@@ -1,0 +1,36 @@
+def onBoth (f : String.T -> List.T DecimalNat.t) := Pair.onBoth String.t String.t (List.t DecimalNat.t) (List.t DecimalNat.t) f f.
+def sort := List.sort DecimalNat.t DecimalNat.Ord.
+
+def parseAndSort : List.T String.t -> List.T DecimalNat.t.
+def parseAndSort_aux : List.T String.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+[l] parseAndSort l --> parseAndSort_aux l (List.nil DecimalNat.t).
+[acc] parseAndSort_aux (List.nil _) acc --> sort acc.
+[hd, tl, acc] parseAndSort_aux (List.cons _ hd tl) acc -->
+Bool.if_then_else (List.t DecimalNat.t) (String.eq hd (String.end))
+    (parseAndSort_aux tl acc)
+    (parseAndSort_aux tl (List.cons DecimalNat.t (DecimalNat.parse hd) acc)).
+
+def intersectSortedList : List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+def intersectSortedList_aux : List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+[l1, l2] intersectSortedList l1 l2 --> intersectSortedList_aux l1 l2 (List.nil DecimalNat.t).
+[acc] intersectSortedList_aux (List.nil _) _ acc --> acc.
+[acc] intersectSortedList_aux _ (List.nil _) acc --> acc.
+[hd1, tl1, hd2, tl2, acc] intersectSortedList_aux (List.cons _ hd1 tl1) (List.cons _ hd2 tl2) acc -->
+Ordering.cases (List.t DecimalNat.t) (DecimalNat.compare hd1 hd2)
+    (intersectSortedList_aux tl1 (List.cons DecimalNat.t hd2 tl2) acc)
+    (intersectSortedList_aux tl1 tl2 (List.cons DecimalNat.t hd1 acc))
+    (intersectSortedList_aux (List.cons DecimalNat.t hd1 tl1) tl2 acc).
+
+def mapOnFirst : (DecimalNat.T -> DecimalNat.T) -> UnaryNat.T -> List.T DecimalNat.t -> List.T DecimalNat.t.
+[l] mapOnFirst _ UnaryNat.0 l --> l.
+[] mapOnFirst _ _ (List.nil _) --> List.nil DecimalNat.t.
+[f, n, hd, tl] mapOnFirst f (UnaryNat.S n) (List.cons _ hd tl) --> List.cons DecimalNat.t (f hd) (mapOnFirst f n tl).
+
+def adhoc : List.T DecimalNat.t -> DecimalNat.T -> UnaryNat.T -> Pair.T (List.t DecimalNat.t) DecimalNat.t.
+[hd, tl, n, acc] adhoc (List.cons _ hd tl) acc n --> Pair.pair (List.t DecimalNat.t) DecimalNat.t (mapOnFirst (DecimalNat.add hd) n tl) (DecimalNat.add hd acc).
+
+def length_list := List.map String.t UnaryNat.t (x => List.length DecimalNat.t (Pair.uncurry (List.t DecimalNat.t) (List.t DecimalNat.t) (List.t DecimalNat.t) intersectSortedList (onBoth (x => parseAndSort (String.split Char.space x)) (String.breakOnFirst Char.pipe (Pair.snd String.t String.t (String.breakOnFirst Char.colon x)))))) (String.lines Input4.content).
+
+def result := Pair.snd (List.t DecimalNat.t) DecimalNat.t (List.fold_left UnaryNat.t (Pair.t (List.t DecimalNat.t) DecimalNat.t) (Pair.uncurry (List.t DecimalNat.t) DecimalNat.t (Base.arr UnaryNat.t (Pair.t (List.t DecimalNat.t) DecimalNat.t)) adhoc) (Pair.pair (List.t DecimalNat.t) DecimalNat.t (List.init DecimalNat.t (List.length UnaryNat.t length_list) DecimalNat.1) DecimalNat.0) length_list).
+
+#EVAL (DecimalNat.print result).

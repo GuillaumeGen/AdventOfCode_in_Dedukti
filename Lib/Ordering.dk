@@ -2,19 +2,24 @@ T : Type.
 t : Base.type.
 [] Base.El t --> T.
 
-EQ : T.
 LT : T.
+EQ : T.
 GT : T.
 
 def eq : T -> T -> Bool.T.
-[] eq EQ EQ --> Bool.true.
-[] eq EQ LT --> Bool.false.
-[] eq EQ GT --> Bool.false.
-[] eq LT EQ --> Bool.false.
 [] eq LT LT --> Bool.true.
+[] eq LT EQ --> Bool.false.
 [] eq LT GT --> Bool.false.
-[] eq GT EQ --> Bool.false.
+[] eq EQ LT --> Bool.false.
+[] eq EQ EQ --> Bool.true.
+[] eq EQ GT --> Bool.false.
 [] eq GT LT --> Bool.false.
+[] eq GT EQ --> Bool.false.
 [] eq GT GT --> Bool.true.
 
 def Eq : Eq.T t := Eq.Cons t eq.
+
+def cases : (a : Base.type) -> T -> Base.El a -> Base.El a -> Base.El a -> Base.El a.
+[x] cases _ LT x _ _ --> x.
+[y] cases _ EQ _ y _ --> y.
+[z] cases _ GT _ _ z --> z.

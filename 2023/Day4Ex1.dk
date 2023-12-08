@@ -1,0 +1,31 @@
+def onBoth (f : String.T -> List.T DecimalNat.t) := Pair.onBoth String.t String.t (List.t DecimalNat.t) (List.t DecimalNat.t) f f.
+def sort := List.sort DecimalNat.t DecimalNat.Ord.
+
+def parseAndSort : List.T String.t -> List.T DecimalNat.t.
+def parseAndSort_aux : List.T String.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+[l] parseAndSort l --> parseAndSort_aux l (List.nil DecimalNat.t).
+[acc] parseAndSort_aux (List.nil _) acc --> sort acc.
+[hd, tl, acc] parseAndSort_aux (List.cons _ hd tl) acc -->
+Bool.if_then_else (List.t DecimalNat.t) (String.eq hd (String.end))
+    (parseAndSort_aux tl acc)
+    (parseAndSort_aux tl (List.cons DecimalNat.t (DecimalNat.parse hd) acc)).
+
+def intersectSortedList : List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+def intersectSortedList_aux : List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t -> List.T DecimalNat.t.
+[l1, l2] intersectSortedList l1 l2 --> intersectSortedList_aux l1 l2 (List.nil DecimalNat.t).
+[acc] intersectSortedList_aux (List.nil _) _ acc --> acc.
+[acc] intersectSortedList_aux _ (List.nil _) acc --> acc.
+[hd1, tl1, hd2, tl2, acc] intersectSortedList_aux (List.cons _ hd1 tl1) (List.cons _ hd2 tl2) acc -->
+Ordering.cases (List.t DecimalNat.t) (DecimalNat.compare hd1 hd2)
+    (intersectSortedList_aux tl1 (List.cons DecimalNat.t hd2 tl2) acc)
+    (intersectSortedList_aux tl1 tl2 (List.cons DecimalNat.t hd1 acc))
+    (intersectSortedList_aux (List.cons DecimalNat.t hd1 tl1) tl2 acc).
+
+def compute_points : UnaryNat.T -> DecimalNat.T.
+[] compute_points UnaryNat.0 --> DecimalNat.0.
+[] compute_points (UnaryNat.S UnaryNat.0) --> DecimalNat.1.
+[x] compute_points (UnaryNat.S (UnaryNat.S x)) --> DecimalNat.mult DecimalNat.2 (compute_points (UnaryNat.S x)).
+
+def result := List.fold_left String.t DecimalNat.t (acc => x => DecimalNat.add acc (compute_points (List.length DecimalNat.t (Pair.uncurry (List.t DecimalNat.t) (List.t DecimalNat.t) (List.t DecimalNat.t) intersectSortedList (onBoth (x => parseAndSort (String.split Char.space x)) (String.breakOnFirst Char.pipe (Pair.snd String.t String.t (String.breakOnFirst Char.colon x)))))))) DecimalNat.0 (String.lines Input4.content).
+
+#EVAL (DecimalNat.print result).
